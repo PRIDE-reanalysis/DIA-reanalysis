@@ -1,0 +1,113 @@
+Bootstrap: docker
+From: bioconductor/bioconductor_docker:RELEASE_3_12
+
+
+%files
+	DIA_downstream_process.R /scripts/DIA_downstream_process.R
+	DIA_downstream_report.rmd /scripts/DIA_downstream_report.rmd 
+	DIA_downstream_datacarpentry.R /scripts/DIA_downstream_datacarpentry.R
+	OpenSWATHtoMSstatsFormat.R /scripts/OpenSWATHtoMSstatsFormat.R
+
+%post
+#install some more build tools and libs
+	apt-get update \
+		&& apt-get install -y --no-install-recommends --no-install-suggests \
+			software-properties-common \
+			git \
+			vim \
+			libgomp1 \
+			zlib1g-dev \
+			libstdc++6 \
+			sudo \
+			build-essential \
+			libssl-dev \
+			libcurl4-openssl-dev \
+			gnupg2 \
+			python-dev \
+			python3-dev \
+			libxml2-dev \
+			libxslt-dev &&\
+			rm -rf /var/lib/apt/lists/*
+
+#setup R configs
+	Rscript -e "install.packages('Rcpp')"
+
+	Rscript -e "install.packages('tidyverse')"
+	Rscript -e "install.packages('dplyr')"
+	Rscript -e "install.packages('tibble')"
+	Rscript -e "install.packages('tidyr')"
+	Rscript -e "install.packages('data.table')"
+	Rscript -e "install.packages('stringr')"
+	Rscript -e "install.packages('knitr')"
+	Rscript -e "install.packages('broom')"
+
+	Rscript -e "install.packages('ggplot2')"
+	Rscript -e "install.packages('graphics')"
+	Rscript -e "install.packages('cowplot')"
+	Rscript -e "install.packages('ggrepel')"
+	Rscript -e "install.packages('ggpubr')"
+	Rscript -e "install.packages('grid')"
+	Rscript -e "install.packages('gridExtra')"
+	Rscript -e "install.packages('patchwork')"
+	Rscript -e "install.packages('RColorBrewer')"
+	Rscript -e "install.packages('heatmap3')"
+	Rscript -e "install.packages('MASS')"
+	Rscript -e "install.packages('lubridate')"
+	Rscript -e "install.packages('chron')"
+	Rscript -e "install.packages('scales')"
+
+	Rscript -e "install.packages('devtools')"
+	Rscript -e "remotes::install_github('twitter/AnomalyDetection')"
+	Rscript -e "BiocManager::install('MSstats')"
+	Rscript -e "BiocManager::install('NormalyzerDE')"
+	Rscript -e "install.packages('optparse')"
+
+	Rscript -e "install.packages('qcc')"
+	Rscript -e "install.packages('ggQC')"
+	Rscript -e "install.packages('MSQC')"
+	Rscript -e "install.packages('IQCC')"
+	Rscript -e "install.packages('yhatr')"
+	Rscript -e "install.packages('pracma')"
+	Rscript -e "install.packages('anomalize')"
+	Rscript -e "install.packages('DMwR')"
+	Rscript -e "install.packages('outliers')"
+	Rscript -e "install.packages('blandr')"
+	Rscript -e "install.packages('cluster')"
+	Rscript -e "install.packages('factoextra')"
+
+	Rscript -e "install.packages('plotly')"
+	Rscript -e "install.packages('htmlwidgets')"
+	Rscript -e "install.packages('tinytex')"
+	
+# acquire tex for knitr
+	#Rscript -e "tinytex::install_tinytex(version = '2020.11')"  # does not work from the package included script - using direct get
+	wget -qO- \
+			"https://github.com/yihui/tinytex/raw/master/tools/install-unx.sh" | \
+			sh -s - --admin --no-path \
+		&& mv ~/.TinyTeX /opt/TinyTeX \
+		&& if /opt/TinyTeX/bin/*/tex -v | grep -q 'TeX Live 2018'; then \
+			## Patch the Perl modules in the frozen TeX Live 2018 snapshot with the newer
+			## version available for the installer in tlnet/tlpkg/TeXLive, to include the
+			## fix described in https://github.com/yihui/tinytex/issues/77#issuecomment-466584510
+			## as discussed in https://www.preining.info/blog/2019/09/tex-services-at-texlive-info/#comments
+			wget -P /tmp/ ${CTAN_REPO}/install-tl-unx.tar.gz \
+				&& tar -xzf /tmp/install-tl-unx.tar.gz -C /tmp/ \
+				&& cp -Tr /tmp/install-tl-*/tlpkg/TeXLive /opt/TinyTeX/tlpkg/TeXLive \
+				&& rm -r /tmp/install-tl-*; \
+			fi \
+		&& /opt/TinyTeX/bin/*/tlmgr path add \
+		&& tlmgr install ae inconsolata listings metafont mfware parskip pdfcrop tex \
+		&& tlmgr path add \
+		&& Rscript -e "tinytex::r_texmf()" \
+		&& chown -R root:staff /opt/TinyTeX \
+		&& chmod -R g+w /opt/TinyTeX \
+		&& chmod -R g+wx /opt/TinyTeX/bin \
+		&& echo "PATH=${PATH}" >> /usr/local/lib/R/etc/Renviron
+
+	Rscript -e "install.packages('tinytex')"  # reinstall tinytex to make sure all previous steps are recognised and integrated
+
+# install some helpful python packages
+	pip3 install pip --upgrade
+	pip3 install setuptools --upgrade
+	pip3 install --force-reinstall 'pytest<=5.0.1'
+	pip3 install numpy pandas mypy pronto pytest jupyter rpy2 biopython flask

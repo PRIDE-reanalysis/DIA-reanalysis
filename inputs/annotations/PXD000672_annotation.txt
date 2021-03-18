@@ -1,0 +1,49 @@
+Condition	BioReplicate	Run
+non-tumorous	1	guot_L130410_001c_SW.mzML
+clear cell RCC	1	guot_L130410_002_SW.mzML
+non-tumorous	2	guot_L130410_003_SW.mzML
+clear cell RCC	2	guot_L130410_004_SW.mzML
+non-tumorous	3	guot_L130410_005_SW.mzML
+clear cell RCC	3	guot_L130410_006_SW.mzML
+non-tumorous	4	guot_L130410_007_SW.mzML
+papillary	4	guot_L130410_008_SW.mzML
+non-tumorous	5	guot_L130410_009_SW.mzML
+chromophobe	5	guot_L130410_010_SW.mzML
+non-tumorous	6	guot_L130410_011_SW.mzML
+clear cell RCC	6	guot_L130410_012_SW.mzML
+non-tumorous	7	guot_L130410_013_SW.mzML
+clear cell RCC	7	guot_L130410_014_SW.mzML
+non-tumorous	8	guot_L130410_015_SW.mzML
+clear cell RCC	8	guot_L130410_016_SW.mzML
+non-tumorous	9	guot_L130410_017_SW.mzML
+papillary	9	guot_L130410_018_SW.mzML
+non-tumorous	1	guot_L130410_019_SW.mzML
+clear cell RCC	1	guot_L130410_020_SW.mzML
+non-tumorous	2	guot_L130410_021_SW.mzML
+clear cell RCC	2	guot_L130410_022_SW.mzML
+non-tumorous	3	guot_L130410_023_SW.mzML
+clear cell RCC	3	guot_L130410_024b_SW.mzML
+non-tumorous	4	guot_L130410_025c_SW.mzML
+papillary	4	guot_L130410_026_SW.mzML
+non-tumorous	5	guot_L130410_027_SW.mzML
+chromophobe	5	guot_L130410_028_SW.mzML
+non-tumorous	6	guot_L130410_029_SW.mzML
+clear cell RCC	6	guot_L130410_030_SW.mzML
+non-tumorous	7	guot_L130410_031_SW.mzML
+clear cell RCC	7	guot_L130410_032_SW.mzML
+non-tumorous	8	guot_L130410_033_SW.mzML
+clear cell RCC	8	guot_L130410_034_SW.mzML
+non-tumorous	9	guot_L130410_035_SW.mzML
+papillary	9	guot_L130410_036_SW.mzML
+digestion_batch1	1	guot_L131109_SW_001.mzML
+digestion_batch1	1	guot_L131109_SW_002.mzML
+digestion_batch1	1	guot_L131109_SW_003.mzML
+digestion_batch1	1	guot_L131109_SW_004.mzML
+digestion_batch2	2	guot_L131109_SW_005.mzML
+digestion_batch2	2	guot_L131109_SW_006.mzML
+digestion_batch2	2	guot_L131109_SW_007.mzML
+digestion_batch2	2	guot_L131109_SW_008.mzML
+digestion_batch3	3	guot_L131109_SW_009.mzML
+digestion_batch3	3	guot_L131109_SW_010.mzML
+digestion_batch3	3	guot_L131109_SW_011.mzML
+digestion_batch3	3	guot_L131109_SW_012.mzML

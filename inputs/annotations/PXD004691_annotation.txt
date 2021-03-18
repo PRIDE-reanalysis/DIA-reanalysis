@@ -1,0 +1,225 @@
+Run	Condition	BioReplicate	technical_replicate	sample_name	
+pcf1.mzML	normal adjacent_fresh frozen	1	a	FN1a	
+pcf2.mzML	normal adjacent_fresh frozen	2	b	FN1b	
+pcf3.mzML	normal adjacent_fresh frozen	3	a	FN2a	
+pcf4.mzML	normal adjacent_fresh frozen	4	b	FN2b	
+pcf5.mzML	normal adjacent_fresh frozen	5	c	FN2c	
+pcf6.mzML	normal adjacent_fresh frozen	6	d	FN2d	
+pcf7.mzML	normal adjacent_fresh frozen	7	e	FN2e	
+pcf8.mzML	normal adjacent_fresh frozen	8	a	FN3a	
+pcf9.mzML	normal adjacent_fresh frozen	9	b	FN3b	
+pcf10.mzML	normal adjacent_fresh frozen	10	a	FN4a	
+pcf11.mzML	normal adjacent_fresh frozen	11	b	FN4b	
+pcf12.mzML	normal adjacent_fresh frozen	12	a	FN5a	
+pcf13.mzML	normal adjacent_fresh frozen	13	b	FN5b	
+pcf14.mzML	normal adjacent_fresh frozen	14	a	FN6a	
+pcf15.mzML	normal adjacent_fresh frozen	15	b	FN6b	
+pcf16.mzML	normal adjacent_fresh frozen	16	a	FN7a	
+pcf17.mzML	normal adjacent_fresh frozen	17	b	FN7b	
+pcf18.mzML	normal adjacent_fresh frozen	18	c	FN7c	
+pcf19.mzML	normal adjacent_fresh frozen	19	d	FN7d	
+pcf20.mzML	normal adjacent_fresh frozen	20	a	FN8a	
+pcf21.mzML	normal adjacent_fresh frozen	21	b	FN8b	
+pcf22.mzML	normal adjacent_fresh frozen	22	a	FN9a	
+pcf23.mzML	normal adjacent_fresh frozen	23	b	FN9b	
+pcf24.mzML	normal adjacent_fresh frozen	24	a	FN10a	
+pcf25.mzML	normal adjacent_fresh frozen	25	b	FN10b	
+pcf26.mzML	normal adjacent_fresh frozen	26	a	FN11a	
+pcf27.mzML	normal adjacent_fresh frozen	27	b	FN11b	
+pcf28.mzML	normal adjacent_fresh frozen	28	a	FN12a	
+pcf29.mzML	normal adjacent_fresh frozen	29	b	FN12b	
+pcf30.mzML	normal adjacent_fresh frozen	30	a	FN13a	
+pcf31.mzML	normal adjacent_fresh frozen	31	b	FN13b	
+pcf32.mzML	normal adjacent_fresh frozen	32	a	FN14a	
+pcf33.mzML	normal adjacent_fresh frozen	33	b	FN14b	
+pcf34.mzML	normal adjacent_fresh frozen	34	a	FN15a	
+pcf35.mzML	normal adjacent_fresh frozen	35	b	FN15b	
+pcf36.mzML	normal adjacent_fresh frozen	36	c	FN15c	
+pcf37.mzML	normal adjacent_fresh frozen	37	d	FN15d	
+pcf38.mzML	normal adjacent_fresh frozen	38	a	FN16a	
+pcf39.mzML	normal adjacent_fresh frozen	39	b	FN16b	
+pcf40.mzML	normal adjacent_fresh frozen	40	a	FN31a	
+pcf41.mzML	normal adjacent_fresh frozen	41	b	FN31b	
+pcf42.mzML	normal adjacent_fresh frozen	42	a	FN32a	
+pcf43.mzML	normal adjacent_fresh frozen	43	b	FN32b	
+pcf44.mzML	normal adjacent_fresh frozen	44	a	FN33a	
+pcf45.mzML	normal adjacent_fresh frozen	45	b	FN33b	
+pcf46.mzML	normal adjacent_fresh frozen	46	a	FN34a	
+pcf47.mzML	normal adjacent_fresh frozen	47	b	FN34b	
+pcf48.mzML	normal adjacent_fresh frozen	48	a	FN35a	
+pcf49.mzML	normal adjacent_fresh frozen	49	b	FN35b	
+pcf50.mzML	normal adjacent_fresh frozen	50	a	FN36a	
+pcf51.mzML	normal adjacent_fresh frozen	51	b	FN36b	
+pcf52.mzML	normal adjacent_fresh frozen	52	a	FN37a	
+pcf53.mzML	normal adjacent_fresh frozen	53	b	FN37b	
+pcf54.mzML	normal adjacent_fresh frozen	54	a	FN38a	
+pcf55.mzML	normal adjacent_fresh frozen	55	b	FN38b	
+pcf56.mzML	tumor_fresh frozen	1	a	FT1a	
+pcf57.mzML	tumor_fresh frozen	2	b	FT1b	
+pcf58.mzML	tumor_fresh frozen	3	a	FT2a	
+pcf59.mzML	tumor_fresh frozen	4	b	FT2b	
+pcf60.mzML	tumor_fresh frozen	5	c	FT2c	
+pcf61.mzML	tumor_fresh frozen	6	d	FT2d	
+pcf62.mzML	tumor_fresh frozen	7	e	FT2e	
+pcf63.mzML	tumor_fresh frozen	8	a	FT3a	
+pcf64.mzML	tumor_fresh frozen	9	b	FT3b	
+pcf65.mzML	tumor_fresh frozen	10	a	FT4a	
+pcf66.mzML	tumor_fresh frozen	11	b	FT4b	
+pcf67.mzML	tumor_fresh frozen	12	a	FT5a	
+pcf68.mzML	tumor_fresh frozen	13	b	FT5b	
+pcf69.mzML	tumor_fresh frozen	14	a	FT6a	
+pcf70.mzML	tumor_fresh frozen	15	b	FT6b	
+pcf71.mzML	tumor_fresh frozen	16	a	FT7a	
+pcf72.mzML	tumor_fresh frozen	17	b	FT7b	
+pcf73.mzML	tumor_fresh frozen	18	c	FT7c	
+pcf74.mzML	tumor_fresh frozen	19	d	FT7d	
+pcf75.mzML	tumor_fresh frozen	20	a	FT8a	
+pcf76.mzML	tumor_fresh frozen	21	b	FT8b	
+pcf77.mzML	tumor_fresh frozen	22	a	FT9a	
+pcf78.mzML	tumor_fresh frozen	23	b	FT9b	
+pcf79.mzML	tumor_fresh frozen	24	a	FT10a	
+pcf80.mzML	tumor_fresh frozen	25	b	FT10b	
+pcf81.mzML	tumor_fresh frozen	26	a	FT11a	
+pcf82.mzML	tumor_fresh frozen	27	b	FT11b	
+pcf83.mzML	tumor_fresh frozen	28	a	FT12a	
+pcf84.mzML	tumor_fresh frozen	29	b	FT12b	
+pcf85.mzML	tumor_fresh frozen	30	a	FT13a	
+pcf86.mzML	tumor_fresh frozen	31	b	FT13b	
+pcf87.mzML	tumor_fresh frozen	32	a	FT14a	
+pcf88.mzML	tumor_fresh frozen	33	b	FT14b	
+pcf89.mzML	tumor_fresh frozen	34	a	FT15a	
+pcf90.mzML	tumor_fresh frozen	35	b	FT15b	
+pcf91.mzML	tumor_fresh frozen	36	c	FT15c	
+pcf92.mzML	tumor_fresh frozen	37	d	FT15d	
+pcf93.mzML	tumor_fresh frozen	38	a	FT16a	
+pcf94.mzML	tumor_fresh frozen	39	b	FT16b	
+pcf95.mzML	tumor_fresh frozen	40	a	FT31a	
+pcf96.mzML	tumor_fresh frozen	41	b	FT31b	
+pcf97.mzML	tumor_fresh frozen	42	a	FT32a	
+pcf98.mzML	tumor_fresh frozen	43	b	FT32b	
+pcf99.mzML	tumor_fresh frozen	44	a	FT33a	
+pcf100.mzML	tumor_fresh frozen	45	b	FT33b	
+pcf101.mzML	tumor_fresh frozen	46	a	FT34a	
+pcf102.mzML	tumor_fresh frozen	47	b	FT34b	
+pcf103.mzML	tumor_fresh frozen	48	a	FT35a	
+pcf104.mzML	tumor_fresh frozen	49	b	FT35b	
+pcf105.mzML	tumor_fresh frozen	50	a	FT36a	
+pcf106.mzML	tumor_fresh frozen	51	b	FT36b	
+pcf107.mzML	tumor_fresh frozen	52	a	FT37a	
+pcf108.mzML	tumor_fresh frozen	53	b	FT37b	
+pcf109.mzML	tumor_fresh frozen	54	a	FT38a	
+pcf110.mzML	tumor_fresh frozen	55	b	FT38b	
+pcf111.mzML	normal adjacent_ffpe	1	a	PN1a	
+pcf112.mzML	normal adjacent_ffpe	2	b	PN1b	
+pcf113.mzML	normal adjacent_ffpe	3	a	PN2a	
+pcf114.mzML	normal adjacent_ffpe	4	b	PN2b	
+pcf115.mzML	normal adjacent_ffpe	5	c	PN2c	
+pcf116.mzML	normal adjacent_ffpe	6	d	PN2d	
+pcf117.mzML	normal adjacent_ffpe	7	e	PN2e	
+pcf118.mzML	normal adjacent_ffpe	8	f	PN2f	
+pcf119.mzML	normal adjacent_ffpe	9	a	PN3a	
+pcf120.mzML	normal adjacent_ffpe	10	b	PN3b	
+pcf121.mzML	normal adjacent_ffpe	11	a	PN4a	
+pcf122.mzML	normal adjacent_ffpe	12	b	PN4b	
+pcf123.mzML	normal adjacent_ffpe	13	a	PN5a	
+pcf124.mzML	normal adjacent_ffpe	14	b	PN5b	
+pcf125.mzML	normal adjacent_ffpe	15	a	PN6a	
+pcf126.mzML	normal adjacent_ffpe	16	b	PN6b	
+pcf127.mzML	normal adjacent_ffpe	17	a	PN7a	
+pcf128.mzML	normal adjacent_ffpe	18	b	PN7b	
+pcf129.mzML	normal adjacent_ffpe	19	c	PN7c	
+pcf130.mzML	normal adjacent_ffpe	20	d	PN7d	
+pcf131.mzML	normal adjacent_ffpe	21	a	PN8a	
+pcf132.mzML	normal adjacent_ffpe	22	b	PN8b	
+pcf133.mzML	normal adjacent_ffpe	23	a	PN9a	
+pcf134.mzML	normal adjacent_ffpe	24	b	PN9b	
+pcf135.mzML	normal adjacent_ffpe	25	a	PN10a	
+pcf136.mzML	normal adjacent_ffpe	26	b	PN10b	
+pcf137.mzML	normal adjacent_ffpe	27	a	PN11a	
+pcf138.mzML	normal adjacent_ffpe	28	b	PN11b	
+pcf139.mzML	normal adjacent_ffpe	29	a	PN12a	
+pcf140.mzML	normal adjacent_ffpe	30	b	PN12b	
+pcf141.mzML	normal adjacent_ffpe	31	a	PN13a	
+pcf142.mzML	normal adjacent_ffpe	32	b	PN13b	
+pcf143.mzML	normal adjacent_ffpe	33	a	PN14a	
+pcf144.mzML	normal adjacent_ffpe	34	b	PN14b	
+pcf145.mzML	normal adjacent_ffpe	35	a	PN15a	
+pcf146.mzML	normal adjacent_ffpe	36	b	PN15b	
+pcf147.mzML	normal adjacent_ffpe	37	c	PN15c	
+pcf148.mzML	normal adjacent_ffpe	38	d	PN15d	
+pcf149.mzML	normal adjacent_ffpe	39	a	PN16a	
+pcf150.mzML	normal adjacent_ffpe	40	b	PN16b	
+pcf151.mzML	normal adjacent_ffpe	41	a	PN31a	
+pcf152.mzML	normal adjacent_ffpe	42	b	PN31b	
+pcf153.mzML	normal adjacent_ffpe	43	a	PN32a	
+pcf154.mzML	normal adjacent_ffpe	44	b	PN32b	
+pcf155.mzML	normal adjacent_ffpe	45	a	PN33a	
+pcf156.mzML	normal adjacent_ffpe	46	b	PN33b	
+pcf157.mzML	normal adjacent_ffpe	47	a	PN34a	
+pcf158.mzML	normal adjacent_ffpe	48	b	PN34b	
+pcf159.mzML	normal adjacent_ffpe	49	a	PN35a	
+pcf160.mzML	normal adjacent_ffpe	50	b	PN35b	
+pcf161.mzML	normal adjacent_ffpe	51	a	PN36a	
+pcf162.mzML	normal adjacent_ffpe	52	b	PN36b	
+pcf163.mzML	normal adjacent_ffpe	53	a	PN37a	
+pcf164.mzML	normal adjacent_ffpe	54	b	PN37b	
+pcf165.mzML	normal adjacent_ffpe	55	a	PN38a	
+pcf166.mzML	normal adjacent_ffpe	56	b	PN38b	
+pcf167.mzML	tumor_ffpe	1	a	PT1a	
+pcf168.mzML	tumor_ffpe	2	b	PT1b	
+pcf169.mzML	tumor_ffpe	3	a	PT2a	
+pcf170.mzML	tumor_ffpe	4	b	PT2b	
+pcf171.mzML	tumor_ffpe	5	c	PT2c	
+pcf172.mzML	tumor_ffpe	6	d	PT2d	
+pcf173.mzML	tumor_ffpe	7	e	PT2e	
+pcf174.mzML	tumor_ffpe	8	f	PT2f	
+pcf175.mzML	tumor_ffpe	9	g	PT2g	
+pcf176.mzML	tumor_ffpe	10	a	PT3a	
+pcf177.mzML	tumor_ffpe	11	b	PT3b	
+pcf178.mzML	tumor_ffpe	12	a	PT4a	
+pcf179.mzML	tumor_ffpe	13	b	PT4b	
+pcf180.mzML	tumor_ffpe	14	a	PT5a	
+pcf181.mzML	tumor_ffpe	15	b	PT5b	
+pcf182.mzML	tumor_ffpe	16	a	PT6a	
+pcf183.mzML	tumor_ffpe	17	b	PT6b	
+pcf184.mzML	tumor_ffpe	18	a	PT7a	
+pcf185.mzML	tumor_ffpe	19	b	PT7b	
+pcf186.mzML	tumor_ffpe	20	c	PT7c	
+pcf187.mzML	tumor_ffpe	21	d	PT7d	
+pcf188.mzML	tumor_ffpe	22	a	PT8a	
+pcf189.mzML	tumor_ffpe	23	b	PT8b	
+pcf190.mzML	tumor_ffpe	24	a	PT9a	
+pcf191.mzML	tumor_ffpe	25	b	PT9b	
+pcf192.mzML	tumor_ffpe	26	a	PT10a	
+pcf193.mzML	tumor_ffpe	27	b	PT10b	
+pcf194.mzML	tumor_ffpe	28	a	PT11a	
+pcf195.mzML	tumor_ffpe	29	b	PT11b	
+pcf196.mzML	tumor_ffpe	30	a	PT12a	
+pcf197.mzML	tumor_ffpe	31	b	PT12b	
+pcf198.mzML	tumor_ffpe	32	a	PT13a	
+pcf199.mzML	tumor_ffpe	33	b	PT13b	
+pcf200.mzML	tumor_ffpe	34	a	PT14a	
+pcf201.mzML	tumor_ffpe	35	b	PT14b	
+pcf202.mzML	tumor_ffpe	36	a	PT15a	
+pcf203.mzML	tumor_ffpe	37	b	PT15b	
+pcf204.mzML	tumor_ffpe	38	c	PT15c	
+pcf205.mzML	tumor_ffpe	39	d	PT15d	
+pcf206.mzML	tumor_ffpe	40	a	PT16a	
+pcf207.mzML	tumor_ffpe	41	b	PT16b	
+pcf208.mzML	tumor_ffpe	42	a	PT31a	
+pcf209.mzML	tumor_ffpe	43	b	PT31b	
+pcf210.mzML	tumor_ffpe	44	a	PT32a	
+pcf211.mzML	tumor_ffpe	45	b	PT32b	
+pcf212.mzML	tumor_ffpe	46	a	PT33a	
+pcf213.mzML	tumor_ffpe	47	b	PT33b	
+pcf214.mzML	tumor_ffpe	48	a	PT34a	
+pcf215.mzML	tumor_ffpe	49	b	PT34b	
+pcf216.mzML	tumor_ffpe	50	c	PT34c	
+pcf217.mzML	tumor_ffpe	51	a	PT35a	
+pcf218.mzML	tumor_ffpe	52	b	PT35b	
+pcf219.mzML	tumor_ffpe	53	a	PT36a	
+pcf220.mzML	tumor_ffpe	54	b	PT36b	
+pcf221.mzML	tumor_ffpe	55	a	PT37a	
+pcf222.mzML	tumor_ffpe	56	b	PT37b	
+pcf223.mzML	tumor_ffpe	57	a	PT38a	
+pcf224.mzML	tumor_ffpe	58	b	PT38b	

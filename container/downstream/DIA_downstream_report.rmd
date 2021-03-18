@@ -1,0 +1,191 @@
+---
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+params:
+  rda: ""
+  ann: ""
+  pxdid: "REPLACEME"
+---
+
+---
+title: `r paste("DIA PRIDEreanalysis (downstream)", params$pxdid, sep = " - ")`
+---
+
+## DIA analysis with MSstats
+
+```{r include=FALSE}
+# Load required libraries
+library('tinytex')
+require(tidyverse)
+require(stringr)
+library(MSstats)
+library(data.table)
+library(knitr)
+library(RColorBrewer)
+library(heatmap3)
+library(ggplot2)
+library(patchwork)
+source('/scripts/DIA_downstream_datacarpentry.R')
+```
+
+```{r, echo=FALSE}
+#Annotations still needed for plots and tables
+annot <- read.csv(params$ann,
+                      header = TRUE,
+                      sep = "\t")
+		      
+#msstats_result get from DIA_downstream_process.R output (rename object)
+assign('msstats_result', get(load(file=params$rda)))
+
+prepro <- process_msstats_rda(msstats_result,annot)
+
+write.table(prepro %>%
+  dplyr::mutate(Intensities = `^`(2,LogIntensities)) %>%
+  dplyr::select(Protein, originalRUN, Intensities) %>%
+  tidyr::spread(originalRUN, Intensities),
+            paste(params$pxdid,"_baseline_raw_untransformed.tsv",sep=""),
+            quote = FALSE,
+            sep = "\t",
+            row.names = FALSE)
+
+protein_matrix <- prepro %>%
+  dplyr::filter(feature_missingrate_per_group < 50) %>%
+  dplyr::mutate(NormIntensities = `^`(2,NormLogIntensities)) %>%
+  dplyr::select(Protein, originalRUN, NormIntensities) %>%
+  tidyr::spread(originalRUN, NormIntensities) 
+
+write.table(protein_matrix,
+            paste(params$pxdid,"_baseline_mediannorm_untransformed.tsv",sep=""),
+            quote = FALSE,
+            sep = "\t",
+            row.names = FALSE)
+
+```
+
+### Annotation table:
+```{r, echo=FALSE}
+
+table_legend = data.frame(
+  index = seq(length(annot$Run)),
+  file_names = unlist(tstrsplit(annot$Run, "[.]", keep=1)),
+  Condition = annot$Condition,
+  BioReplicate = annot$BioReplicate
+)
+kable(table_legend)
+
+```
+
+###  Detection numbers
+
+```{r, echo=FALSE}
+prot_tot_distinct <- prepro %>% dplyr::distinct(Protein) %>% nrow(.)
+prot_tot_l50r <- prepro %>% dplyr::filter(feature_missingrate_per_run > 50) %>% dplyr::distinct(Protein) %>% nrow(.)
+prot_tot_l50g <- prepro %>% dplyr::filter(feature_missingrate_per_group > 50) %>% dplyr::distinct(Protein) %>% nrow(.)
+pep_tot <- length(levels(msstats_result$ProcessedData$PEPTIDE))
+irt_peptides <- unique(as.character(msstats_result$ProcessedData[which(msstats_result$ProcessedData$PROTEIN=="1/iRT_protein"),"PEPTIDE"]))
+irt_peptides = tryCatch(length(unique(unlist(tstrsplit(irt_peptides, "_", keep=1)))), 
+                        error = function(e) 0)
+
+kable(data.frame(
+    Analysis = c("Total num of proteins", 
+                 "Total num of proteins with <50% missing features per group",
+                 "Total num of proteins with <50% missing feature per run",
+                 "Total num of iRT peptides",
+                 "Total num of peptides"),
+    Measure = c(prot_tot_distinct,
+                prot_tot_l50g,
+                prot_tot_l50r,
+                irt_peptides,
+                pep_tot)),
+    col.names = NA)
+
+```
+
+\newpage
+
+### Normalisation inspection
+```{r, echo=FALSE, fig.align="center"}
+
+  ru <- ggplot(prepro, 
+               aes(x = LogIntensities , y = originalRUN , fill = GROUP_ORIGINAL) ) +
+    geom_boxplot(outlier.size = 0.5) + 
+    scale_fill_discrete(name="Experimental\nCondition") +
+    theme(legend.position = "none", axis.text.y=element_text(size=rel(0.5))) + 
+    labs(title=paste("Raw LogIntensities", params$pxdid, sep = " "),x="LogIntensity", y = "Runs")
+  nu <- ggplot(prepro, 
+               aes(x = NormLogIntensities , y = originalRUN , fill = GROUP_ORIGINAL) ) +
+    geom_boxplot(outlier.size = 0.5) + 
+    scale_fill_discrete(name="Experimental\nCondition") +
+    theme(legend.position = "none", axis.text.y=element_text(size=rel(0.5))) + 
+    labs(title=paste("Median normalised LogIntensities", params$pxdid, sep = " "),x="LogIntensity", y = "Runs")
+  
+# ru / nu + plot_layout(guides = "collect") & theme(legend.position = "right") 
+ru
+nu
+```
+
+### Clustering
+```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE}
+protein_matrix <- protein_matrix %>% column_to_rownames(var = "Protein")
+protein_matrix[is.na(protein_matrix)]=0
+pca_analysis<-prcomp(t(protein_matrix))
+var_expl <- pca_analysis$sdev^2/sum(pca_analysis$sdev^2)
+
+par(mar=c(5.1, 4.1, 4.1, 5.1), xpd=TRUE)
+plot(pca_analysis$x, type="n",
+     main="PCA Analysis:",
+     xlab = paste0("PC1 (", as.character(round(var_expl[1]*100,1)), "%)"),
+     ylab = paste0("PC2 (", as.character(round(var_expl[2]*100,1)), "%)"))
+text(pca_analysis$x, 
+     cex = 0.7,
+     label=seq(length(annot$Run)),
+     col = as.numeric(as.factor(annot$Condition)))
+
+
+legend("topright", inset=c(-.2,0), legend =levels(as.factor(annot$Condition)),pch=16, pt.cex=1.5, cex=0.75, bty='n',
+    col = seq_along(levels(as.factor(annot$Condition))))
+```
+
+```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE}
+par(mar=c(5,5,2,2),xaxs = "i",yaxs = "i",cex.axis=0.4,cex.lab=10)
+my_group1 <- as.numeric(as.factor(annot$Condition))
+
+Condition <- brewer.pal(9, "Set1")[my_group1]
+colSide <-cbind(Condition)
+colMain <- colorRampPalette(brewer.pal(10, "Blues"))(25)
+cor_results <- cor(protein_matrix)
+ColSideAnn<-data.frame(Condition=my_group1,stringsAsFactors=TRUE)
+heatmap3(main="Hierarchical Cluster Analysis:",
+         cor_results, 
+         RowSideColors=colSide,
+         ColSideColors=colSide,
+         col=colMain,
+         labRow = seq(length(annot$Run)),
+         cexRow = 0.4,
+         labCol = FALSE,
+         ColSideAnn=ColSideAnn,
+         ColSideWidth = 10,
+         legendfun=function() showLegend(legend=levels(as.factor(annot$Condition)),col=brewer.pal(9, "Set1")[seq_along(levels(as.factor(annot$Condition)))], cex=.9, title="Condition"))
+```
+
+```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE}
+par(mar=c(5,5,2,2),xaxs = "i",yaxs = "i",cex.axis=0.4,cex.lab=10)
+my_group1 <- as.numeric(as.factor(annot$Condition))
+
+Condition <- brewer.pal(9, "Set1")[my_group1]
+colSide <-cbind(Condition)
+colMain <- colorRampPalette(brewer.pal(10, "Blues"))(25)
+cor_results <- cor(protein_matrix)
+ColSideAnn<-data.frame(Condition=my_group1,stringsAsFactors=TRUE)
+heatmap3(cor_results, 
+         RowSideColors=colSide,
+         ColSideColors=colSide,
+         col=colMain,
+         labRow = seq(length(annot$Run)),
+         cexRow = 0.4,
+         labCol = FALSE,
+         ColSideAnn=ColSideAnn,
+         ColSideWidth = 10,
+         legendfun=function() showLegend(legend=levels(as.factor(annot$Condition)),col=brewer.pal(9, "Set1")[seq_along(levels(as.factor(annot$Condition)))], cex=.9, title="Condition"))
+```

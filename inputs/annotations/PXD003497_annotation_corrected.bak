@@ -1,0 +1,61 @@
+Run	BioReplicate	Condition	technical_replicate	sample_name
+guot_L131015_001_SW.mzML	P1	benign prostatic hyperplasia	a	P1N1a
+guot_L131015_002_SW.mzML	P1	benign prostatic hyperplasia	a	P1N2a
+guot_L131014_001B_SW.mzML	P1	benign prostatic hyperplasia	a	P1N3a
+guot_L131015_003_SW.mzML	P1	acinar adenocarcinoma	a	P1A1a
+guot_L131014_002B_SW.mzML	P1	acinar adenocarcinoma	a	P1A2a
+guot_L131014_003B_SW.mzML	P1	acinar adenocarcinoma	a	P1A3a
+guot_L131015_004_SW.mzML	P2	benign prostatic hyperplasia	a	P2N1a
+guot_L131016_001_SW.mzML	P2	benign prostatic hyperplasia	a	P2N2a
+guot_L131016_002_SW.mzML	P2	benign prostatic hyperplasia	a	P2N3a
+guot_L131015_005_SW.mzML	P2	acinar adenocarcinoma	a	P2A1a
+guot_L131015_006_SW.mzML	P2	acinar adenocarcinoma	a	P2A2a
+guot_L131016_003_SW.mzML	P2	acinar adenocarcinoma	a	P2A3a
+guot_L131016_004_SW.mzML	P3	benign prostatic hyperplasia	a	P3N1a
+guot_L131014_004_SW.mzML	P3	benign prostatic hyperplasia	a	P3N2a
+guot_L131014_005_SW.mzML	P3	benign prostatic hyperplasia	a	P3N3a
+guot_L131017_001_SW.mzML	P3	benign prostatic hyperplasia	a	P3N4a
+guot_L131017_002_SW.mzML	P3	benign prostatic hyperplasia	a	P3N5a
+guot_L131017_003_SW.mzML	P3	benign prostatic hyperplasia	a	P3N6a
+guot_L131017_004_SW.mzML	P3	ductal adenocarcinoma	a	P3D1a
+guot_L131017_005_SW.mzML	P3	ductal adenocarcinoma	a	P3D2a
+guot_L131017_006_SW.mzML	P3	ductal adenocarcinoma	a	P3D3a
+guot_L131018_001_SW.mzML	P3	ductal adenocarcinoma	a	P3D4a
+guot_L131018_002_SW.mzML	P3	ductal adenocarcinoma	a	P3D5a
+guot_L131018_003_SW.mzML	P3	ductal adenocarcinoma	a	P3D6a
+guot_L131016_005_SW.mzML	P3	acinar adenocarcinoma	a	P3A1a
+guot_L131016_006_SW.mzML	P3	acinar adenocarcinoma	a	P3A2a
+guot_L131014_006_SW.mzML	P3	acinar adenocarcinoma	a	P3A3a
+guot_L131018_004_SW.mzML	P3	acinar adenocarcinoma	a	P3A4a
+guot_L131018_005_SW.mzML	P3	acinar adenocarcinoma	a	P3A5a
+guot_L131018_006_SW.mzML	P3	acinar adenocarcinoma	a	P3A6a
+guot_L131019_001B_SW.mzML	P1	benign prostatic hyperplasia	b	P1N1b
+guot_L131019_002_SW.mzML	P1	benign prostatic hyperplasia	b	P1N2b
+guot_L131021_001_SW.mzML	P1	benign prostatic hyperplasia	b	P1N3b
+guot_L131019_003_SW.mzML	P1	acinar adenocarcinoma	b	P1A1b
+guot_L131021_002_SW.mzML	P1	acinar adenocarcinoma	b	P1A2b
+guot_L131021_003_SW.mzML	P1	acinar adenocarcinoma	b	P1A3b
+guot_L131019_004_SW.mzML	P2	benign prostatic hyperplasia	b	P2N1b
+guot_L131020_001B_SW.mzML	P2	benign prostatic hyperplasia	b	P2N2b
+guot_L131020_002B_SW.mzML	P2	benign prostatic hyperplasia	b	P2N3b
+guot_L131019_005_SW.mzML	P2	acinar adenocarcinoma	b	P2A1b
+guot_L131019_006C_SW.mzML	P2	acinar adenocarcinoma	b	P2A2b
+guot_L131020_003_SW.mzML	P2	acinar adenocarcinoma	b	P2A3b
+guot_L131020_004_SW.mzML	P3	benign prostatic hyperplasia	b	P3N1b
+guot_L131021_004_SW.mzML	P3	benign prostatic hyperplasia	b	P3N2b
+guot_L131021_005_SW.mzML	P3	benign prostatic hyperplasia	b	P3N3b
+guot_L131022_001_SW.mzML	P3	benign prostatic hyperplasia	b	P3N4b
+guot_L131022_002_SW.mzML	P3	benign prostatic hyperplasia	b	P3N5b
+guot_L131022_003_SW.mzML	P3	benign prostatic hyperplasia	b	P3N6b
+guot_L131022_004_SW.mzML	P3	ductal adenocarcinoma	b	P3D1b
+guot_L131022_005_SW.mzML	P3	ductal adenocarcinoma	b	P3D2b
+guot_L131022_006_SW.mzML	P3	ductal adenocarcinoma	b	P3D3b
+guot_L131023_001_SW.mzML	P3	ductal adenocarcinoma	b	P3D4b
+guot_L131023_002_SW.mzML	P3	ductal adenocarcinoma	b	P3D5b
+guot_L131023_003_SW.mzML	P3	ductal adenocarcinoma	b	P3D6b
+guot_L131020_005_SW.mzML	P3	acinar adenocarcinoma	b	P3A1b
+guot_L131020_006_SW.mzML	P3	acinar adenocarcinoma	b	P3A2b
+guot_L131021_006_SW.mzML	P3	acinar adenocarcinoma	b	P3A3b
+guot_L131023_004_SW.mzML	P3	acinar adenocarcinoma	b	P3A4b
+guot_L131023_005_SW.mzML	P3	acinar adenocarcinoma	b	P3A5b
+guot_L131023_006_SW.mzML	P3	acinar adenocarcinoma	b	P3A6b

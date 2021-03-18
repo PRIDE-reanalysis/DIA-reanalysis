@@ -1,0 +1,10 @@
+Bootstrap: docker
+From: python:3.8-slim-buster
+
+%files
+    compare_windows.py
+    extract_windows.py
+
+%post
+    pip3 install numpy pandas
+

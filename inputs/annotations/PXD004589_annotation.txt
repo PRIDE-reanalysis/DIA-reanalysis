@@ -1,0 +1,211 @@
+Run	Condition	BioReplicate
+guot_L140224_sw_05.mzML	BPH	1
+guot_L140320_sw_01.mzML	BPH	1
+guot_L140320_sw_09.mzML	BPH	1
+guot_L140405_sw_09.mzML	BPH	1
+guot_L140410_sw_09.mzML	BPH	1
+guot_L140415_sw_08.mzML	BPH	1
+guot_L140224_sw_11.mzML	BPH	2
+guot_L140315_sw_01.mzML	BPH	2
+guot_L140410_sw_04.mzML	BPH	2
+guot_L140412_sw_01.mzML	BPH	2
+guot_L140412_sw_07.mzML	BPH	2
+guot_L140418_sw_06.mzML	BPH	2
+guot_L140317_sw_01B.mzML	BPH	3
+guot_L140317_sw_10B.mzML	BPH	3
+guot_L140412_sw_12.mzML	BPH	3
+guot_L140413_sw_04.mzML	BPH	3
+guot_L140415_sw_01.mzML	BPH	3
+guot_L140418_sw_04.mzML	BPH	3
+guot_L140320_sw_12C.mzML	BPH	4
+guot_L140324_sw_02.mzML	BPH	4
+guot_L140408_sw_04.mzML	BPH	4
+guot_L140413_sw_10.mzML	BPH	4
+guot_L140415_sw_03.mzML	BPH	4
+guot_L140425_sw_03B.mzML	BPH	4
+guot_L140315_sw_04.mzML	BPH	5
+guot_L140315_sw_07.mzML	BPH	5
+guot_L140317_sw_03B.mzML	BPH	5
+guot_L140324_sw_09.mzML	BPH	5
+guot_L140410_sw_03.mzML	BPH	5
+guot_L140415_sw_11.mzML	BPH	5
+guot_L140317_sw_07.mzML	BPH	6
+guot_L140324_sw_05.mzML	BPH	6
+guot_L140405_sw_07.mzML	BPH	6
+guot_L140412_sw_09.mzML	BPH	6
+guot_L140413_sw_05.mzML	BPH	6
+guot_L140415_sw_09.mzML	BPH	6
+guot_L140224_sw_07.mzML	BPH	7
+guot_L140224_sw_09.mzML	BPH	7
+guot_L140324_sw_08.mzML	BPH	7
+guot_L140405_sw_03.mzML	BPH	7
+guot_L140413_sw_08.mzML	BPH	7
+guot_L140415_sw_06.mzML	BPH	7
+guot_L140315_sw_03.mzML	BPH	8
+guot_L140315_sw_09.mzML	BPH	8
+guot_L140317_sw_02B.mzML	BPH	8
+guot_L140405_sw_04.mzML	BPH	8
+guot_L140413_sw_03.mzML	BPH	8
+guot_L140413_sw_12B.mzML	BPH	8
+guot_L140324_sw_01.mzML	BPH	9
+guot_L140324_sw_10B.mzML	BPH	9
+guot_L140410_sw_05.mzML	BPH	9
+guot_L140410_sw_08.mzML	BPH	9
+guot_L140412_sw_04.mzML	BPH	9
+guot_L140418_sw_03.mzML	BPH	9
+guot_L140220sw_01B.mzML	BPH	10
+guot_L140220sw_03.mzML	BPH	10
+guot_L140222sw_06.mzML	BPH	10
+guot_L140408_sw_02.mzML	BPH	10
+guot_L140412_sw_05.mzML	BPH	10
+guot_L140425_sw_02.mzML	BPH	10
+guot_L140220sw_04.mzML	BPH	11
+guot_L140220sw_11.mzML	BPH	11
+guot_L140222sw_01.mzML	BPH	11
+guot_L140222_sw_08B.mzML	BPH	11
+guot_L140220sw_08.mzML	BPH	12
+guot_L140220sw_12.mzML	BPH	12
+guot_L140222sw_09.mzML	BPH	12
+guot_L140224_sw_01.mzML	BPH	12
+guot_L140224_sw_03.mzML	BPH	13
+guot_L140317_sw_12.mzML	BPH	13
+guot_L140315_sw_08.mzML	BPH	14
+guot_L140408_sw_06.mzML	BPH	14
+guot_L140320_sw_06.mzML	BPH	15
+guot_L140405_sw_02E.mzML	BPH	15
+guot_L140224_sw_10.mzML	BPH	16
+guot_L140405_sw_12.mzML	BPH	16
+guot_L140320_sw_11C.mzML	BPH	17
+guot_L140410_sw_11.mzML	BPH	17
+guot_L140315_sw_12.mzML	TA1	
+guot_L140326_sw_03B.mzML	TA1	
+guot_L140326_sw_06.mzML	TA1	
+guot_L140326_sw_07.mzML	TA1	
+guot_L140420_sw_02.mzML	TA1	
+guot_L140420_sw_11.mzML	TA1	
+guot_L140315_sw_06.mzML	TA1	
+guot_L140317_sw_05.mzML	TA1	
+guot_L140317_sw_09B.mzML	TA1	
+guot_L140326_sw_01C.mzML	TA1	
+guot_L140405_sw_05.mzML	TA1	
+guot_L140405_sw_08.mzML	TA1	
+guot_L140224_sw_06.mzML	TA1	
+guot_L140315_sw_10.mzML	TA1	
+guot_L140320_sw_04C.mzML	TA1	
+guot_L140326_sw_08C.mzML	TA1	
+guot_L140405_sw_10C.mzML	TA1	
+guot_L140410_sw_01.mzML	TA1	
+guot_L140315_sw_02.mzML	TA1	
+guot_L140324_sw_04.mzML	TA1	
+guot_L140324_sw_11B.mzML	TA1	
+guot_L140326_sw_10B.mzML	TA1	
+guot_L140410_sw_02.mzML	TA1	
+guot_L140420_sw_05.mzML	TA1	
+guot_L140317_sw_11.mzML	TA1	
+guot_L140320_sw_03.mzML	TA1	
+guot_L140408_sw_01.mzML	TA1	
+guot_L140418_sw_08.mzML	TA1	
+guot_L140420_sw_12.mzML	TA1	
+guot_L140425_sw_01.mzML	TA1	
+guot_L140224_sw_12.mzML	TA1	
+guot_L140224_sw_14.mzML	TA1	
+guot_L140324_sw_07.mzML	TA1	
+guot_L140418_sw_11.mzML	TA1	
+guot_L140422_sw_04.mzML	TA1	
+guot_L140425_sw_04B.mzML	TA1	
+guot_L140224_sw_13.mzML	TA1	
+guot_L140317_sw_06.mzML	TA1	
+guot_L140320_sw_07.mzML	TA1	
+guot_L140324_sw_03.mzML	TA1	
+guot_L140405_sw_01.mzML	TA1	
+guot_L140405_sw_11.mzML	TA1	
+guot_L140224_sw_08.mzML	TA1	
+guot_L140317_sw_08.mzML	TA1	
+guot_L140326_sw_05.mzML	TA1	
+guot_L140326_sw_09.mzML	TA1	
+guot_L140408_sw_05.mzML	TA1	
+guot_L140422_sw_05.mzML	TA1	
+guot_L140317_sw_04.mzML	TA1	
+guot_L140320_sw_08.mzML	TA1	
+guot_L140324_sw_12.mzML	TA1	
+guot_L140326_sw_11.mzML	TA1	
+guot_L140405_sw_06.mzML	TA1	
+guot_L140418_sw_09.mzML	TA1	
+guot_L140220sw_02.mzML	TA1	
+guot_L140220sw_05.mzML	TA1	
+guot_L140222sw_02.mzML	TA1	
+guot_L140222sw_05.mzML	TA1	
+guot_L140420_sw_06.mzML	TA1	
+guot_L140420_sw_07.mzML	TA1	
+guot_L140220sw_06.mzML	TA1	
+guot_L140220sw_07.mzML	TA1	
+guot_L140222sw_03.mzML	TA1	
+guot_L140222sw_10.mzML	TA1	
+guot_L140220sw_09.mzML	TA1	
+guot_L140220sw_10.mzML	TA1	
+guot_L140222sw_07.mzML	TA1	
+guot_L140224_sw_02.mzML	TA1	
+guot_L140315_sw_05.mzML	TA1	
+guot_L140320_sw_10C.mzML	TA1	
+guot_L140326_sw_12.mzML	TA1	
+guot_L140422_sw_06.mzML	TA1	
+guot_L140324_sw_06.mzML	TA1	
+guot_L140408_sw_03.mzML	TA1	
+guot_L140326_sw_02C.mzML	TA1	
+guot_L140410_sw_06.mzML	TA1	
+guot_L140224_sw_04.mzML	TA1	
+guot_L140315_sw_11.mzML	TA1	
+guot_L140412_sw_02.mzML	TA2	
+guot_L140413_sw_01.mzML	TA2	
+guot_L140413_sw_07.mzML	TA2	
+guot_L140424_sw_08.mzML	TA2	
+guot_L140415_sw_05.mzML	TA2	
+guot_L140418_sw_07.mzML	TA2	
+guot_L140420_sw_03.mzML	TA2	
+guot_L140422_sw_03.mzML	TA2	
+guot_L140410_sw_10.mzML	TA2	
+guot_L140412_sw_08.mzML	TA2	
+guot_L140420_sw_08.mzML	TA2	
+guot_L140422_sw_01.mzML	TA2	
+guot_L140422_sw_07.mzML	TA2	
+guot_L140422_sw_09.mzML	TA2	
+guot_L140424_sw_04.mzML	TA2	
+guot_L140424_sw_09.mzML	TA2	
+guot_L140412_sw_03.mzML	TA2	
+guot_L140413_sw_02.mzML	TA2	
+guot_L140422_sw_02.mzML	TA2	
+guot_L140424_sw_10.mzML	TA2	
+guot_L140418_sw_01.mzML	TA2	
+guot_L140420_sw_09.mzML	TA2	
+guot_L140424_sw_07.mzML	TA2	
+guot_L140424_sw_11.mzML	TA2	
+guot_L140420_sw_01.mzML	TA2	
+guot_L140420_sw_10.mzML	TA2	
+guot_L140424_sw_01.mzML	TA2	
+guot_L140424_sw_12.mzML	TA2	
+guot_L140418_sw_02.mzML	TA2	
+guot_L140420_sw_04.mzML	TA2	
+guot_L140422_sw_11.mzML	TA2	
+guot_L140424_sw_02.mzML	TA2	
+guot_L140422_sw_08.mzML	TA2	
+guot_L140422_sw_12.mzML	TA2	
+guot_L140424_sw_03.mzML	TA2	
+guot_L140424_sw_05.mzML	TA2	
+guot_L140415_sw_02.mzML	TA2	
+guot_L140415_sw_10.mzML	TA2	
+guot_L140415_sw_12.mzML	TA2	
+guot_L140418_sw_05.mzML	TA2	
+guot_L140410_sw_07.mzML	TA2	
+guot_L140412_sw_11.mzML	TA2	
+guot_L140413_sw_11.mzML	TA2	
+guot_L140415_sw_07.mzML	TA2	
+guot_L140412_sw_06.mzML	TA2	
+guot_L140415_sw_04.mzML	TA2	
+guot_L140412_sw_10.mzML	TA2	
+guot_L140413_sw_06.mzML	TA2	
+guot_L140413_sw_09.mzML	TA2	
+guot_L140424_sw_06.mzML	TA2	
+guot_L140418_sw_12.mzML	TA2	
+guot_L140422_sw_10B.mzML	TA2	
+guot_L140410_sw_12.mzML	TA2	
+guot_L140418_sw_10.mzML	TA2	

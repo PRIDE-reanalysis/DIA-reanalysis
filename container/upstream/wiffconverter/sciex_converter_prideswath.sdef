@@ -1,0 +1,10 @@
+Bootstrap: docker
+From: sciex/wiffconverter:0.7
+
+%files
+    convert_wiff_ignore_NullReferenceException.sh
+    
+%post
+    chmod ugo+x /convert_wiff_ignore_NullReferenceException.sh
+
+

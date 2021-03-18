@@ -1,0 +1,35 @@
+sciex_converter:
+  container: "/hps/nobackup2/proteomics/sciex_converter_prideswath.simg"
+  memory: 4  # GB, multiplied by the number of attempts
+  maxRetries: 5
+openswath:
+  container: "/hps/nobackup2/proteomics/openswath:0.1.2.simg"
+  memory: 4  # GB, multiplied by the number of attempts
+  threads: 6
+  mz_extraction_window: 30 # ppm
+  irt_mz_extraction_window: 50  #ppm
+  rt_extraction_window: 600  # seconds
+yamato:
+  container: "/hps/nobackup2/proteomics/yamato:v1.0.4_pridereswath.simg"
+  memory: 8  # GB, multiplied by the number of attempts
+  maxRetries: 3
+pyprophet:
+  container: "/hps/nobackup2/proteomics/pyprophet_2.1.3.simg"
+  memory: 4  # GB, multiplied by the number of attempts
+  threads: 6
+  max_global_peptide_qvalue: 0.01
+  max_global_protein_qvalue: 0.01
+  max_rs_peakgroup_qvalue: 0.01
+  test: false
+tric:
+  container: "/hps/nobackup2/proteomics/openswath:0.1.2.simg"
+  memory: 4  # GB, multiplied by the number of attempts
+  alignment_score: 0.0999
+  fdr_cutoff: 0.01
+  max_fdr_quality: 0.01
+helper_scripts:
+  container: "/hps/nobackup2/proteomics/pridereswath.simg"
+  memory: 4
+aRgh:
+  container: "/hps/nobackup2/proteomics/python-r:bioc-py3-tinytex-qc_plus_msstats.simg"
+

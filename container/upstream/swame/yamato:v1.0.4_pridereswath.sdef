@@ -1,0 +1,17 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%files
+    swame_ignore_throws.sh
+    
+%post
+    apt update && apt install -y curl && apt install -y --no-install-recommends unzip python libunwind8 libicu-dev && rm -rf /var/lib/apt/lists/*
+    mkdir -p /yamato 
+    curl -L https://github.com/PaulBrack/Yamato/releases/download/v1.0.4/release-linux-x64.zip -o /yamato/release.zip
+    cd /yamato && unzip /yamato/release.zip  
+    chmod +x /yamato/SwaMe.Console
+    chmod ugo+x /swame_ignore_throws.sh
+%environment
+    export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+    export PATH=/yamato:$PATH
+
