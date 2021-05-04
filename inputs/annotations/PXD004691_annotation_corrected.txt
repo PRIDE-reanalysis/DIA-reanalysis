@@ -1,225 +1,225 @@
-Run	BioReplicate	Condition	technical_replicate	sample_name
-pcf1.mzML	1	F-N	a	FN1a
-pcf2.mzML	1	F-N	b	FN1b
-pcf3.mzML	2	F-N	a	FN2a
-pcf4.mzML	2	F-N	b	FN2b
-pcf5.mzML	2	F-N	c	FN2c
-pcf6.mzML	2	F-N	d	FN2d
-pcf7.mzML	2	F-N	e	FN2e
-pcf8.mzML	3	F-N	a	FN3a
-pcf9.mzML	3	F-N	b	FN3b
-pcf10.mzML	4	F-N	a	FN4a
-pcf11.mzML	4	F-N	b	FN4b
-pcf12.mzML	5	F-N	a	FN5a
-pcf13.mzML	5	F-N	b	FN5b
-pcf14.mzML	6	F-N	a	FN6a
-pcf15.mzML	6	F-N	b	FN6b
-pcf16.mzML	7	F-N	a	FN7a
-pcf17.mzML	7	F-N	b	FN7b
-pcf18.mzML	7	F-N	c	FN7c
-pcf19.mzML	7	F-N	d	FN7d
-pcf20.mzML	8	F-N	a	FN8a
-pcf21.mzML	8	F-N	b	FN8b
-pcf22.mzML	9	F-N	a	FN9a
-pcf23.mzML	9	F-N	b	FN9b
-pcf24.mzML	10	F-N	a	FN10a
-pcf25.mzML	10	F-N	b	FN10b
-pcf26.mzML	11	F-N	a	FN11a
-pcf27.mzML	11	F-N	b	FN11b
-pcf28.mzML	12	F-N	a	FN12a
-pcf29.mzML	12	F-N	b	FN12b
-pcf30.mzML	13	F-N	a	FN13a
-pcf31.mzML	13	F-N	b	FN13b
-pcf32.mzML	14	F-N	a	FN14a
-pcf33.mzML	14	F-N	b	FN14b
-pcf34.mzML	15	F-N	a	FN15a
-pcf35.mzML	15	F-N	b	FN15b
-pcf36.mzML	15	F-N	c	FN15c
-pcf37.mzML	15	F-N	d	FN15d
-pcf38.mzML	16	F-N	a	FN16a
-pcf39.mzML	16	F-N	b	FN16b
-pcf40.mzML	31	F-N	a	FN31a
-pcf41.mzML	31	F-N	b	FN31b
-pcf42.mzML	32	F-N	a	FN32a
-pcf43.mzML	32	F-N	b	FN32b
-pcf44.mzML	33	F-N	a	FN33a
-pcf45.mzML	33	F-N	b	FN33b
-pcf46.mzML	34	F-N	a	FN34a
-pcf47.mzML	34	F-N	b	FN34b
-pcf48.mzML	35	F-N	a	FN35a
-pcf49.mzML	35	F-N	b	FN35b
-pcf50.mzML	36	F-N	a	FN36a
-pcf51.mzML	36	F-N	b	FN36b
-pcf52.mzML	37	F-N	a	FN37a
-pcf53.mzML	37	F-N	b	FN37b
-pcf54.mzML	38	F-N	a	FN38a
-pcf55.mzML	38	F-N	b	FN38b
-pcf56.mzML	1	F-T	a	FT1a
-pcf57.mzML	1	F-T	b	FT1b
-pcf58.mzML	2	F-T	a	FT2a
-pcf59.mzML	2	F-T	b	FT2b
-pcf60.mzML	2	F-T	c	FT2c
-pcf61.mzML	2	F-T	d	FT2d
-pcf62.mzML	2	F-T	e	FT2e
-pcf63.mzML	3	F-T	a	FT3a
-pcf64.mzML	3	F-T	b	FT3b
-pcf65.mzML	4	F-T	a	FT4a
-pcf66.mzML	4	F-T	b	FT4b
-pcf67.mzML	5	F-T	a	FT5a
-pcf68.mzML	5	F-T	b	FT5b
-pcf69.mzML	6	F-T	a	FT6a
-pcf70.mzML	6	F-T	b	FT6b
-pcf71.mzML	7	F-T	a	FT7a
-pcf72.mzML	7	F-T	b	FT7b
-pcf73.mzML	7	F-T	c	FT7c
-pcf74.mzML	7	F-T	d	FT7d
-pcf75.mzML	8	F-T	a	FT8a
-pcf76.mzML	8	F-T	b	FT8b
-pcf77.mzML	9	F-T	a	FT9a
-pcf78.mzML	9	F-T	b	FT9b
-pcf79.mzML	10	F-T	a	FT10a
-pcf80.mzML	10	F-T	b	FT10b
-pcf81.mzML	11	F-T	a	FT11a
-pcf82.mzML	11	F-T	b	FT11b
-pcf83.mzML	12	F-T	a	FT12a
-pcf84.mzML	12	F-T	b	FT12b
-pcf85.mzML	13	F-T	a	FT13a
-pcf86.mzML	13	F-T	b	FT13b
-pcf87.mzML	14	F-T	a	FT14a
-pcf88.mzML	14	F-T	b	FT14b
-pcf89.mzML	15	F-T	a	FT15a
-pcf90.mzML	15	F-T	b	FT15b
-pcf91.mzML	15	F-T	c	FT15c
-pcf92.mzML	15	F-T	d	FT15d
-pcf93.mzML	16	F-T	a	FT16a
-pcf94.mzML	16	F-T	b	FT16b
-pcf95.mzML	31	F-T	a	FT31a
-pcf96.mzML	31	F-T	b	FT31b
-pcf97.mzML	32	F-T	a	FT32a
-pcf98.mzML	32	F-T	b	FT32b
-pcf99.mzML	33	F-T	a	FT33a
-pcf100.mzML	33	F-T	b	FT33b
-pcf101.mzML	34	F-T	a	FT34a
-pcf102.mzML	34	F-T	b	FT34b
-pcf103.mzML	35	F-T	a	FT35a
-pcf104.mzML	35	F-T	b	FT35b
-pcf105.mzML	36	F-T	a	FT36a
-pcf106.mzML	36	F-T	b	FT36b
-pcf107.mzML	37	F-T	a	FT37a
-pcf108.mzML	37	F-T	b	FT37b
-pcf109.mzML	38	F-T	a	FT38a
-pcf110.mzML	38	F-T	b	FT38b
-pcf111.mzML	1	P-N	a	PN1a
-pcf112.mzML	1	P-N	b	PN1b
-pcf113.mzML	2	P-N	a	PN2a
-pcf114.mzML	2	P-N	b	PN2b
-pcf115.mzML	2	P-N	c	PN2c
-pcf116.mzML	2	P-N	d	PN2d
-pcf117.mzML	2	P-N	e	PN2e
-pcf118.mzML	2	P-N	f	PN2f
-pcf119.mzML	3	P-N	a	PN3a
-pcf120.mzML	3	P-N	b	PN3b
-pcf121.mzML	4	P-N	a	PN4a
-pcf122.mzML	4	P-N	b	PN4b
-pcf123.mzML	5	P-N	a	PN5a
-pcf124.mzML	5	P-N	b	PN5b
-pcf125.mzML	6	P-N	a	PN6a
-pcf126.mzML	6	P-N	b	PN6b
-pcf127.mzML	7	P-N	a	PN7a
-pcf128.mzML	7	P-N	b	PN7b
-pcf129.mzML	7	P-N	c	PN7c
-pcf130.mzML	7	P-N	d	PN7d
-pcf131.mzML	8	P-N	a	PN8a
-pcf132.mzML	8	P-N	b	PN8b
-pcf133.mzML	9	P-N	a	PN9a
-pcf134.mzML	9	P-N	b	PN9b
-pcf135.mzML	10	P-N	a	PN10a
-pcf136.mzML	10	P-N	b	PN10b
-pcf137.mzML	11	P-N	a	PN11a
-pcf138.mzML	11	P-N	b	PN11b
-pcf139.mzML	12	P-N	a	PN12a
-pcf140.mzML	12	P-N	b	PN12b
-pcf141.mzML	13	P-N	a	PN13a
-pcf142.mzML	13	P-N	b	PN13b
-pcf143.mzML	14	P-N	a	PN14a
-pcf144.mzML	14	P-N	b	PN14b
-pcf145.mzML	15	P-N	a	PN15a
-pcf146.mzML	15	P-N	b	PN15b
-pcf147.mzML	15	P-N	c	PN15c
-pcf148.mzML	15	P-N	d	PN15d
-pcf149.mzML	16	P-N	a	PN16a
-pcf150.mzML	16	P-N	b	PN16b
-pcf151.mzML	31	P-N	a	PN31a
-pcf152.mzML	31	P-N	b	PN31b
-pcf153.mzML	32	P-N	a	PN32a
-pcf154.mzML	32	P-N	b	PN32b
-pcf155.mzML	33	P-N	a	PN33a
-pcf156.mzML	33	P-N	b	PN33b
-pcf157.mzML	34	P-N	a	PN34a
-pcf158.mzML	34	P-N	b	PN34b
-pcf159.mzML	35	P-N	a	PN35a
-pcf160.mzML	35	P-N	b	PN35b
-pcf161.mzML	36	P-N	a	PN36a
-pcf162.mzML	36	P-N	b	PN36b
-pcf163.mzML	37	P-N	a	PN37a
-pcf164.mzML	37	P-N	b	PN37b
-pcf165.mzML	38	P-N	a	PN38a
-pcf166.mzML	38	P-N	b	PN38b
-pcf167.mzML	1	P-T	a	PT1a
-pcf168.mzML	1	P-T	b	PT1b
-pcf169.mzML	2	P-T	a	PT2a
-pcf170.mzML	2	P-T	b	PT2b
-pcf171.mzML	2	P-T	c	PT2c
-pcf172.mzML	2	P-T	d	PT2d
-pcf173.mzML	2	P-T	e	PT2e
-pcf174.mzML	2	P-T	f	PT2f
-pcf175.mzML	2	P-T	g	PT2g
-pcf176.mzML	3	P-T	a	PT3a
-pcf177.mzML	3	P-T	b	PT3b
-pcf178.mzML	4	P-T	a	PT4a
-pcf179.mzML	4	P-T	b	PT4b
-pcf180.mzML	5	P-T	a	PT5a
-pcf181.mzML	5	P-T	b	PT5b
-pcf182.mzML	6	P-T	a	PT6a
-pcf183.mzML	6	P-T	b	PT6b
-pcf184.mzML	7	P-T	a	PT7a
-pcf185.mzML	7	P-T	b	PT7b
-pcf186.mzML	7	P-T	c	PT7c
-pcf187.mzML	7	P-T	d	PT7d
-pcf188.mzML	8	P-T	a	PT8a
-pcf189.mzML	8	P-T	b	PT8b
-pcf190.mzML	9	P-T	a	PT9a
-pcf191.mzML	9	P-T	b	PT9b
-pcf192.mzML	10	P-T	a	PT10a
-pcf193.mzML	10	P-T	b	PT10b
-pcf194.mzML	11	P-T	a	PT11a
-pcf195.mzML	11	P-T	b	PT11b
-pcf196.mzML	12	P-T	a	PT12a
-pcf197.mzML	12	P-T	b	PT12b
-pcf198.mzML	13	P-T	a	PT13a
-pcf199.mzML	13	P-T	b	PT13b
-pcf200.mzML	14	P-T	a	PT14a
-pcf201.mzML	14	P-T	b	PT14b
-pcf202.mzML	15	P-T	a	PT15a
-pcf203.mzML	15	P-T	b	PT15b
-pcf204.mzML	15	P-T	c	PT15c
-pcf205.mzML	15	P-T	d	PT15d
-pcf206.mzML	16	P-T	a	PT16a
-pcf207.mzML	16	P-T	b	PT16b
-pcf208.mzML	31	P-T	a	PT31a
-pcf209.mzML	31	P-T	b	PT31b
-pcf210.mzML	32	P-T	a	PT32a
-pcf211.mzML	32	P-T	b	PT32b
-pcf212.mzML	33	P-T	a	PT33a
-pcf213.mzML	33	P-T	b	PT33b
-pcf214.mzML	34	P-T	a	PT34a
-pcf215.mzML	34	P-T	b	PT34b
-pcf216.mzML	34	P-T	c	PT34c
-pcf217.mzML	35	P-T	a	PT35a
-pcf218.mzML	35	P-T	b	PT35b
-pcf219.mzML	36	P-T	a	PT36a
-pcf220.mzML	36	P-T	b	PT36b
-pcf221.mzML	37	P-T	a	PT37a
-pcf222.mzML	37	P-T	b	PT37b
-pcf223.mzML	38	P-T	a	PT38a
-pcf224.mzML	38	P-T	b	PT38b
+Run	BioReplicate	Condition	technical_replicate	sample_name	quant_matrix_key
+pcf1.mzML	1	F-N	a	FN1a	FN1
+pcf2.mzML	1	F-N	b	FN1b	FN1
+pcf3.mzML	2	F-N	a	FN2a	FN2
+pcf4.mzML	2	F-N	b	FN2b	FN2
+pcf5.mzML	2	F-N	c	FN2c	FN2
+pcf6.mzML	2	F-N	d	FN2d	FN2
+pcf7.mzML	2	F-N	e	FN2e	FN2
+pcf8.mzML	3	F-N	a	FN3a	FN3
+pcf9.mzML	3	F-N	b	FN3b	FN3
+pcf10.mzML	4	F-N	a	FN4a	FN4
+pcf11.mzML	4	F-N	b	FN4b	FN4
+pcf12.mzML	5	F-N	a	FN5a	FN5
+pcf13.mzML	5	F-N	b	FN5b	FN5
+pcf14.mzML	6	F-N	a	FN6a	FN6
+pcf15.mzML	6	F-N	b	FN6b	FN6
+pcf16.mzML	7	F-N	a	FN7a	FN7
+pcf17.mzML	7	F-N	b	FN7b	FN7
+pcf18.mzML	7	F-N	c	FN7c	FN7
+pcf19.mzML	7	F-N	d	FN7d	FN7
+pcf20.mzML	8	F-N	a	FN8a	FN8
+pcf21.mzML	8	F-N	b	FN8b	FN8
+pcf22.mzML	9	F-N	a	FN9a	FN9
+pcf23.mzML	9	F-N	b	FN9b	FN9
+pcf24.mzML	10	F-N	a	FN10a	FN10
+pcf25.mzML	10	F-N	b	FN10b	FN10
+pcf26.mzML	11	F-N	a	FN11a	FN11
+pcf27.mzML	11	F-N	b	FN11b	FN11
+pcf28.mzML	12	F-N	a	FN12a	FN12
+pcf29.mzML	12	F-N	b	FN12b	FN12
+pcf30.mzML	13	F-N	a	FN13a	FN13
+pcf31.mzML	13	F-N	b	FN13b	FN13
+pcf32.mzML	14	F-N	a	FN14a	FN14
+pcf33.mzML	14	F-N	b	FN14b	FN14
+pcf34.mzML	15	F-N	a	FN15a	FN15
+pcf35.mzML	15	F-N	b	FN15b	FN15
+pcf36.mzML	15	F-N	c	FN15c	FN15
+pcf37.mzML	15	F-N	d	FN15d	FN15
+pcf38.mzML	16	F-N	a	FN16a	FN16
+pcf39.mzML	16	F-N	b	FN16b	FN16
+pcf40.mzML	31	F-N	a	FN31a	FN31
+pcf41.mzML	31	F-N	b	FN31b	FN31
+pcf42.mzML	32	F-N	a	FN32a	FN32
+pcf43.mzML	32	F-N	b	FN32b	FN32
+pcf44.mzML	33	F-N	a	FN33a	FN33
+pcf45.mzML	33	F-N	b	FN33b	FN33
+pcf46.mzML	34	F-N	a	FN34a	FN34
+pcf47.mzML	34	F-N	b	FN34b	FN34
+pcf48.mzML	35	F-N	a	FN35a	FN35
+pcf49.mzML	35	F-N	b	FN35b	FN35
+pcf50.mzML	36	F-N	a	FN36a	FN36
+pcf51.mzML	36	F-N	b	FN36b	FN36
+pcf52.mzML	37	F-N	a	FN37a	FN37
+pcf53.mzML	37	F-N	b	FN37b	FN37
+pcf54.mzML	38	F-N	a	FN38a	FN38
+pcf55.mzML	38	F-N	b	FN38b	FN38
+pcf56.mzML	1	F-T	a	FT1a	FT1
+pcf57.mzML	1	F-T	b	FT1b	FT1
+pcf58.mzML	2	F-T	a	FT2a	FT2
+pcf59.mzML	2	F-T	b	FT2b	FT2
+pcf60.mzML	2	F-T	c	FT2c	FT2
+pcf61.mzML	2	F-T	d	FT2d	FT2
+pcf62.mzML	2	F-T	e	FT2e	FT2
+pcf63.mzML	3	F-T	a	FT3a	FT3
+pcf64.mzML	3	F-T	b	FT3b	FT3
+pcf65.mzML	4	F-T	a	FT4a	FT4
+pcf66.mzML	4	F-T	b	FT4b	FT4
+pcf67.mzML	5	F-T	a	FT5a	FT5
+pcf68.mzML	5	F-T	b	FT5b	FT5
+pcf69.mzML	6	F-T	a	FT6a	FT6
+pcf70.mzML	6	F-T	b	FT6b	FT6
+pcf71.mzML	7	F-T	a	FT7a	FT7
+pcf72.mzML	7	F-T	b	FT7b	FT7
+pcf73.mzML	7	F-T	c	FT7c	FT7
+pcf74.mzML	7	F-T	d	FT7d	FT7
+pcf75.mzML	8	F-T	a	FT8a	FT8
+pcf76.mzML	8	F-T	b	FT8b	FT8
+pcf77.mzML	9	F-T	a	FT9a	FT9
+pcf78.mzML	9	F-T	b	FT9b	FT9
+pcf79.mzML	10	F-T	a	FT10a	FT10
+pcf80.mzML	10	F-T	b	FT10b	FT10
+pcf81.mzML	11	F-T	a	FT11a	FT11
+pcf82.mzML	11	F-T	b	FT11b	FT11
+pcf83.mzML	12	F-T	a	FT12a	FT12
+pcf84.mzML	12	F-T	b	FT12b	FT12
+pcf85.mzML	13	F-T	a	FT13a	FT13
+pcf86.mzML	13	F-T	b	FT13b	FT13
+pcf87.mzML	14	F-T	a	FT14a	FT14
+pcf88.mzML	14	F-T	b	FT14b	FT14
+pcf89.mzML	15	F-T	a	FT15a	FT15
+pcf90.mzML	15	F-T	b	FT15b	FT15
+pcf91.mzML	15	F-T	c	FT15c	FT15
+pcf92.mzML	15	F-T	d	FT15d	FT15
+pcf93.mzML	16	F-T	a	FT16a	FT16
+pcf94.mzML	16	F-T	b	FT16b	FT16
+pcf95.mzML	31	F-T	a	FT31a	FT31
+pcf96.mzML	31	F-T	b	FT31b	FT31
+pcf97.mzML	32	F-T	a	FT32a	FT32
+pcf98.mzML	32	F-T	b	FT32b	FT32
+pcf99.mzML	33	F-T	a	FT33a	FT33
+pcf100.mzML	33	F-T	b	FT33b	FT33
+pcf101.mzML	34	F-T	a	FT34a	FT34
+pcf102.mzML	34	F-T	b	FT34b	FT34
+pcf103.mzML	35	F-T	a	FT35a	FT35
+pcf104.mzML	35	F-T	b	FT35b	FT35
+pcf105.mzML	36	F-T	a	FT36a	FT36
+pcf106.mzML	36	F-T	b	FT36b	FT36
+pcf107.mzML	37	F-T	a	FT37a	FT37
+pcf108.mzML	37	F-T	b	FT37b	FT37
+pcf109.mzML	38	F-T	a	FT38a	FT38
+pcf110.mzML	38	F-T	b	FT38b	FT38
+pcf111.mzML	1	P-N	a	PN1a	PN1
+pcf112.mzML	1	P-N	b	PN1b	PN1
+pcf113.mzML	2	P-N	a	PN2a	PN2
+pcf114.mzML	2	P-N	b	PN2b	PN2
+pcf115.mzML	2	P-N	c	PN2c	PN2
+pcf116.mzML	2	P-N	d	PN2d	PN2
+pcf117.mzML	2	P-N	e	PN2e	PN2
+pcf118.mzML	2	P-N	f	PN2f	PN2
+pcf119.mzML	3	P-N	a	PN3a	PN3
+pcf120.mzML	3	P-N	b	PN3b	PN3
+pcf121.mzML	4	P-N	a	PN4a	PN4
+pcf122.mzML	4	P-N	b	PN4b	PN4
+pcf123.mzML	5	P-N	a	PN5a	PN5
+pcf124.mzML	5	P-N	b	PN5b	PN5
+pcf125.mzML	6	P-N	a	PN6a	PN6
+pcf126.mzML	6	P-N	b	PN6b	PN6
+pcf127.mzML	7	P-N	a	PN7a	PN7
+pcf128.mzML	7	P-N	b	PN7b	PN7
+pcf129.mzML	7	P-N	c	PN7c	PN7
+pcf130.mzML	7	P-N	d	PN7d	PN7
+pcf131.mzML	8	P-N	a	PN8a	PN8
+pcf132.mzML	8	P-N	b	PN8b	PN8
+pcf133.mzML	9	P-N	a	PN9a	PN9
+pcf134.mzML	9	P-N	b	PN9b	PN9
+pcf135.mzML	10	P-N	a	PN10a	PN10
+pcf136.mzML	10	P-N	b	PN10b	PN10
+pcf137.mzML	11	P-N	a	PN11a	PN11
+pcf138.mzML	11	P-N	b	PN11b	PN11
+pcf139.mzML	12	P-N	a	PN12a	PN12
+pcf140.mzML	12	P-N	b	PN12b	PN12
+pcf141.mzML	13	P-N	a	PN13a	PN13
+pcf142.mzML	13	P-N	b	PN13b	PN13
+pcf143.mzML	14	P-N	a	PN14a	PN14
+pcf144.mzML	14	P-N	b	PN14b	PN14
+pcf145.mzML	15	P-N	a	PN15a	PN15
+pcf146.mzML	15	P-N	b	PN15b	PN15
+pcf147.mzML	15	P-N	c	PN15c	PN15
+pcf148.mzML	15	P-N	d	PN15d	PN15
+pcf149.mzML	16	P-N	a	PN16a	PN16
+pcf150.mzML	16	P-N	b	PN16b	PN16
+pcf151.mzML	31	P-N	a	PN31a	PN31
+pcf152.mzML	31	P-N	b	PN31b	PN31
+pcf153.mzML	32	P-N	a	PN32a	PN32
+pcf154.mzML	32	P-N	b	PN32b	PN32
+pcf155.mzML	33	P-N	a	PN33a	PN33
+pcf156.mzML	33	P-N	b	PN33b	PN33
+pcf157.mzML	34	P-N	a	PN34a	PN34
+pcf158.mzML	34	P-N	b	PN34b	PN34
+pcf159.mzML	35	P-N	a	PN35a	PN35
+pcf160.mzML	35	P-N	b	PN35b	PN35
+pcf161.mzML	36	P-N	a	PN36a	PN36
+pcf162.mzML	36	P-N	b	PN36b	PN36
+pcf163.mzML	37	P-N	a	PN37a	PN37
+pcf164.mzML	37	P-N	b	PN37b	PN37
+pcf165.mzML	38	P-N	a	PN38a	PN38
+pcf166.mzML	38	P-N	b	PN38b	PN38
+pcf167.mzML	1	P-T	a	PT1a	PT1
+pcf168.mzML	1	P-T	b	PT1b	PT1
+pcf169.mzML	2	P-T	a	PT2a	PT2
+pcf170.mzML	2	P-T	b	PT2b	PT2
+pcf171.mzML	2	P-T	c	PT2c	PT2
+pcf172.mzML	2	P-T	d	PT2d	PT2
+pcf173.mzML	2	P-T	e	PT2e	PT2
+pcf174.mzML	2	P-T	f	PT2f	PT2
+pcf175.mzML	2	P-T	g	PT2g	PT2
+pcf176.mzML	3	P-T	a	PT3a	PT3
+pcf177.mzML	3	P-T	b	PT3b	PT3
+pcf178.mzML	4	P-T	a	PT4a	PT4
+pcf179.mzML	4	P-T	b	PT4b	PT4
+pcf180.mzML	5	P-T	a	PT5a	PT5
+pcf181.mzML	5	P-T	b	PT5b	PT5
+pcf182.mzML	6	P-T	a	PT6a	PT6
+pcf183.mzML	6	P-T	b	PT6b	PT6
+pcf184.mzML	7	P-T	a	PT7a	PT7
+pcf185.mzML	7	P-T	b	PT7b	PT7
+pcf186.mzML	7	P-T	c	PT7c	PT7
+pcf187.mzML	7	P-T	d	PT7d	PT7
+pcf188.mzML	8	P-T	a	PT8a	PT8
+pcf189.mzML	8	P-T	b	PT8b	PT8
+pcf190.mzML	9	P-T	a	PT9a	PT9
+pcf191.mzML	9	P-T	b	PT9b	PT9
+pcf192.mzML	10	P-T	a	PT10a	PT10
+pcf193.mzML	10	P-T	b	PT10b	PT10
+pcf194.mzML	11	P-T	a	PT11a	PT11
+pcf195.mzML	11	P-T	b	PT11b	PT11
+pcf196.mzML	12	P-T	a	PT12a	PT12
+pcf197.mzML	12	P-T	b	PT12b	PT12
+pcf198.mzML	13	P-T	a	PT13a	PT13
+pcf199.mzML	13	P-T	b	PT13b	PT13
+pcf200.mzML	14	P-T	a	PT14a	PT14
+pcf201.mzML	14	P-T	b	PT14b	PT14
+pcf202.mzML	15	P-T	a	PT15a	PT15
+pcf203.mzML	15	P-T	b	PT15b	PT15
+pcf204.mzML	15	P-T	c	PT15c	PT15
+pcf205.mzML	15	P-T	d	PT15d	PT15
+pcf206.mzML	16	P-T	a	PT16a	PT16
+pcf207.mzML	16	P-T	b	PT16b	PT16
+pcf208.mzML	31	P-T	a	PT31a	PT31
+pcf209.mzML	31	P-T	b	PT31b	PT31
+pcf210.mzML	32	P-T	a	PT32a	PT32
+pcf211.mzML	32	P-T	b	PT32b	PT32
+pcf212.mzML	33	P-T	a	PT33a	PT33
+pcf213.mzML	33	P-T	b	PT33b	PT33
+pcf214.mzML	34	P-T	a	PT34a	PT34
+pcf215.mzML	34	P-T	b	PT34b	PT34
+pcf216.mzML	34	P-T	c	PT34c	PT34
+pcf217.mzML	35	P-T	a	PT35a	PT35
+pcf218.mzML	35	P-T	b	PT35b	PT35
+pcf219.mzML	36	P-T	a	PT36a	PT36
+pcf220.mzML	36	P-T	b	PT36b	PT36
+pcf221.mzML	37	P-T	a	PT37a	PT37
+pcf222.mzML	37	P-T	b	PT37b	PT37
+pcf223.mzML	38	P-T	a	PT38a	PT38
+pcf224.mzML	38	P-T	b	PT38b	PT38

@@ -1,49 +1,49 @@
-Run	Condition	BioReplicate
-guot_L130410_001c_SW.mzML	normal_ccRCC	1
-guot_L130410_002_SW.mzML	ccRCC	1
-guot_L130410_019_SW.mzML	normal_ccRCC	1
-guot_L130410_020_SW.mzML	ccRCC	1
-guot_L131109_SW_001.mzML	digestion_batch1	10
-guot_L131109_SW_002.mzML	digestion_batch1	10
-guot_L131109_SW_003.mzML	digestion_batch1	10
-guot_L131109_SW_004.mzML	digestion_batch1	10
-guot_L130410_003_SW.mzML	normal_ccRCC	2
-guot_L130410_004_SW.mzML	ccRCC	2
-guot_L130410_021_SW.mzML	normal_ccRCC	2
-guot_L130410_022_SW.mzML	ccRCC	2
-guot_L131109_SW_005.mzML	digestion_batch2	10
-guot_L131109_SW_006.mzML	digestion_batch2	10
-guot_L131109_SW_007.mzML	digestion_batch2	10
-guot_L131109_SW_008.mzML	digestion_batch2	10
-guot_L130410_005_SW.mzML	normal_ccRCC	3
-guot_L130410_006_SW.mzML	ccRCC	3
-guot_L130410_023_SW.mzML	normal_ccRCC	3
-guot_L130410_024b_SW.mzML	ccRCC	3
-guot_L131109_SW_009.mzML	digestion_batch3	10
-guot_L131109_SW_010.mzML	digestion_batch3	10
-guot_L131109_SW_011.mzML	digestion_batch3	10
-guot_L131109_SW_012.mzML	digestion_batch3	10
-guot_L130410_007_SW.mzML	normal_pRCC 4
-guot_L130410_008_SW.mzML	pRCC	4
-guot_L130410_025c_SW.mzML	normal_pRCC 4
-guot_L130410_026_SW.mzML	pRCC	4
-guot_L130410_009_SW.mzML	normal_chRCC	5
-guot_L130410_010_SW.mzML	chRCC	5
-guot_L130410_027_SW.mzML	normal_chRCC	5
-guot_L130410_028_SW.mzML	chRCC	5
-guot_L130410_011_SW.mzML	normal_ccRCC	6
-guot_L130410_012_SW.mzML	ccRCC	6
-guot_L130410_029_SW.mzML	normal_ccRCC	6
-guot_L130410_030_SW.mzML	ccRCC	6
-guot_L130410_013_SW.mzML	normal_ccRCC	7
-guot_L130410_014_SW.mzML	ccRCC	7
-guot_L130410_031_SW.mzML	normal_ccRCC	7
-guot_L130410_032_SW.mzML	ccRCC	7
-guot_L130410_015_SW.mzML	normal_ccRCC	8
-guot_L130410_016_SW.mzML	ccRCC	8
-guot_L130410_033_SW.mzML	normal_ccRCC	8
-guot_L130410_034_SW.mzML	ccRCC	8
-guot_L130410_017_SW.mzML	normal_pRCC	9
-guot_L130410_018_SW.mzML	pRCC	9
-guot_L130410_035_SW.mzML	normal_pRCC	9
-guot_L130410_036_SW.mzML	pRCC	9
+Run	Condition	BioReplicate	quant_matrix_key
+guot_L130410_001c_SW.mzML	normal_ccRCC	1	kidneyTisue1
+guot_L130410_002_SW.mzML	ccRCC	1	kidneyTisue2
+guot_L130410_003_SW.mzML	normal_ccRCC	2	kidneyTisue3
+guot_L130410_004_SW.mzML	ccRCC	2	kidneyTisue4
+guot_L130410_005_SW.mzML	normal_ccRCC	3	kidneyTisue5
+guot_L130410_006_SW.mzML	ccRCC	3	kidneyTisue6
+guot_L130410_007_SW.mzML	normal_pRCC	4	kidneyTisue7
+guot_L130410_008_SW.mzML	pRCC	4	kidneyTisue8
+guot_L130410_009_SW.mzML	normal_chRCC	5	kidneyTisue9
+guot_L130410_010_SW.mzML	chRCC	5	kidneyTisue10
+guot_L130410_011_SW.mzML	normal_ccRCC	6	kidneyTisue11
+guot_L130410_012_SW.mzML	ccRCC	6	kidneyTisue12
+guot_L130410_013_SW.mzML	normal_ccRCC	7	kidneyTisue13
+guot_L130410_014_SW.mzML	ccRCC	7	kidneyTisue14
+guot_L130410_015_SW.mzML	normal_ccRCC	8	kidneyTisue15
+guot_L130410_016_SW.mzML	ccRCC	8	kidneyTisue16
+guot_L130410_017_SW.mzML	normal_pRCC	9	kidneyTisue17
+guot_L130410_018_SW.mzML	pRCC	9	kidneyTisue18
+guot_L130410_019_SW.mzML	normal_ccRCC	1	kidneyTisue19
+guot_L130410_020_SW.mzML	ccRCC	1	kidneyTisue20
+guot_L130410_021_SW.mzML	normal_ccRCC	2	kidneyTisue21
+guot_L130410_022_SW.mzML	ccRCC	2	kidneyTisue22
+guot_L130410_023_SW.mzML	normal_ccRCC	3	kidneyTisue23
+guot_L130410_024b_SW.mzML	ccRCC	3	kidneyTisue24
+guot_L130410_025c_SW.mzML	normal_pRCC	4	kidneyTisue25
+guot_L130410_026_SW.mzML	pRCC	4	kidneyTisue26
+guot_L130410_027_SW.mzML	normal_chRCC	5	kidneyTisue27
+guot_L130410_028_SW.mzML	chRCC	5	kidneyTisue28
+guot_L130410_029_SW.mzML	normal_ccRCC	6	kidneyTisue29
+guot_L130410_030_SW.mzML	ccRCC	6	kidneyTisue30
+guot_L130410_031_SW.mzML	normal_ccRCC	7	kidneyTisue31
+guot_L130410_032_SW.mzML	ccRCC	7	kidneyTisue32
+guot_L130410_033_SW.mzML	normal_ccRCC	8	kidneyTisue33
+guot_L130410_034_SW.mzML	ccRCC	8	kidneyTisue34
+guot_L130410_035_SW.mzML	normal_pRCC	9	kidneyTisue35
+guot_L130410_036_SW.mzML	pRCC	9	kidneyTisue36
+guot_L131109_SW_001.mzML	digestion_batch1	10	kidneyTisue37
+guot_L131109_SW_002.mzML	digestion_batch1	10	kidneyTisue38
+guot_L131109_SW_003.mzML	digestion_batch1	10	kidneyTisue39
+guot_L131109_SW_004.mzML	digestion_batch1	10	kidneyTisue40
+guot_L131109_SW_005.mzML	digestion_batch2	10	kidneyTisue41
+guot_L131109_SW_006.mzML	digestion_batch2	10	kidneyTisue42
+guot_L131109_SW_007.mzML	digestion_batch2	10	kidneyTisue43
+guot_L131109_SW_008.mzML	digestion_batch2	10	kidneyTisue44
+guot_L131109_SW_009.mzML	digestion_batch3	10	kidneyTisue45
+guot_L131109_SW_010.mzML	digestion_batch3	10	kidneyTisue46
+guot_L131109_SW_011.mzML	digestion_batch3	10	kidneyTisue47
+guot_L131109_SW_012.mzML	digestion_batch3	10	kidneyTisue48
