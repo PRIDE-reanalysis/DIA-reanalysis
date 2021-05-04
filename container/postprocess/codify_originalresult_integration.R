@@ -3,7 +3,7 @@ library(stringr)
 
 # PXD014943
 theirs_PXD014943 <- function(){
-annot <- read.delim("../inputs/annotations/PXD014943_annotation_corrected.txt")
+annot <- read.delim("../inputs/annotations/PXD014943_annotation_corrected_norecalc.txt")
 ori   <- read.delim("../inputs/original_results_from_supplementaries/PXD014943_suppl_protein_quant_samplelevel_only.tsv")  %>%
   dplyr::mutate(Protein = as.factor(Protein)) %>% 
   filter(across(Protein, ~ !grepl(';', .))) %>%
