@@ -5,8 +5,19 @@ library(ggplot2)
 library(RColorBrewer)
 library(patchwork)
 
+source("../container/downstream/DIA_downstream_datacarpentry.R")
+source("../container/postprocess/codify_study_customisations.R")
+
 # This needs a nifty table that has all the numbers collected
 protein_counts_all_projects <- read.delim("../R/protein_counts_all_projects.tsv")
+
+
+pxds <- c("PXD004873", "PXD000672", "PXD004691", "PXD014943", "PXD003497", "PXD004589", "PXD014194", "PXD003539", "PXD001064", "PXD010912")
+
+for ( i in pxds ) {
+  data <- get(paste("ours_",i,sep=""))(norm="median", tally=TRUE)
+  print(data)
+}  
 
 # define order manually
 PXD_order <- c("PXD004873*",

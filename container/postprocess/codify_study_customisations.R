@@ -1,5 +1,6 @@
 library(tidyverse)
 library(stringr)
+library(data.table)
 source("../container/downstream/DIA_downstream_datacarpentry.R")
 
 # The functions tie together file load of annotation and rda, 
@@ -20,8 +21,40 @@ source("../container/downstream/DIA_downstream_datacarpentry.R")
 #   extras: you can build in a group filter argument or 
 #           a normalisation method selector argument
   
+
+tally_protpepirt <- function(rda, annot) {
+  # TODO: this is unreadable legacy code (and slow!!!) ; replace with tidyverse version
+  intensity_matrix<-matrix(ncol =length(annot$Run),
+                           nrow = length(levels(rda$RunlevelData$Protein)),
+                           dimnames = list(levels(rda$RunlevelData$Protein), annot$Run))
+  
+  for (i in seq(length(rda$RunlevelData$Protein))){
+    tmp_row_index <- which(rownames(intensity_matrix)==as.character(rda$RunlevelData$Protein[i]))
+    tmp_col_index <- which(colnames(intensity_matrix)==as.character(rda$RunlevelData$originalRUN[i]))
+    intensity_matrix[tmp_row_index,tmp_col_index]=rda$RunlevelData$LogIntensities[i]
+  }
+  
+  irt_peptides <- nrow(rda$ProcessedData %>% 
+                         dplyr::filter(PROTEIN=="1/iRT_protein") %>% 
+                         dplyr::mutate(irtp =  gsub("_.*","",PEPTIDE) ) %>% dplyr::distinct(irtp)
+                       )
+  
+  table_procdat <- data.frame(
+    Analysis = c("Total num of proteins", 
+                 "Total num of proteins with <50% missing values",
+                 "Total num of iRT peptides",
+                 "Total num of peptides"),
+    measure = c(dim(intensity_matrix)[1],
+                dim(intensity_matrix[rowSums(is.na(intensity_matrix)) < dim(intensity_matrix)[2]/2,])[1],
+                length(irt_peptides),
+                length(levels(rda$ProcessedData$PEPTIDE)))
+  )
+  return(table_procdat)
+  
+}
+
 # PXD014194
-ours_PXD014194 <- function(groups, norm="median"){
+ours_PXD014194 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD014194_annotation_corrected.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD014194.rda"
   load(rda)
@@ -30,7 +63,7 @@ ours_PXD014194 <- function(groups, norm="median"){
     groups <- as.character((goldstandard.proposed$RunlevelData %>% distinct(GROUP_ORIGINAL))$GROUP_ORIGINAL)
   }
   
-  return(our<-goldstandard.proposed$RunlevelData %>% 
+  our<-goldstandard.proposed$RunlevelData %>% 
            group_consistency(annot) %>%
            clean_protein_names() %>% 
            dplyr::filter(GROUP_ORIGINAL %in% groups) %>%
@@ -41,11 +74,22 @@ ours_PXD014194 <- function(groups, norm="median"){
            dplyr::full_join(annot, by = c("originalRUN" = "Run")) %>%
            dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                          feature_missingrate_per_group,feature_missingrate_per_run,technical_replicate) %>%
-           dplyr::ungroup())
+           dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                              dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                              dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD010912
-ours_PXD010912 <- function(groups, norm="median"){
+ours_PXD010912 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD010912_annotation.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD010912.rda"
   load(rda)
@@ -66,10 +110,21 @@ ours_PXD010912 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run) %>%
     dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD004873
-ours_PXD004873 <- function(groups, norm="median"){
+ours_PXD004873 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD004873_annotation_corrected.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD004873.rda"
   load(rda)
@@ -90,10 +145,21 @@ ours_PXD004873 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run,technical_replicate) %>%
     dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD004691
-ours_PXD004691 <- function(groups, norm="median"){
+ours_PXD004691 <- function(groups, norm="median", tally=FALSE){
   # annot <- read.delim("../inputs/annotations/PXD004691_annotation.txt") %>% dplyr::select(Run,Condition,BioReplicate,technical_replicate,sample_name)
   annot <- read.delim("../inputs/annotations/PXD004691_annotation_corrected.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD004691.rda"
@@ -115,10 +181,21 @@ ours_PXD004691 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run,technical_replicate) %>%
     dplyr::ungroup()
+
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD004589
-ours_PXD004589 <- function(groups, norm="median"){
+ours_PXD004589 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD004589_annotation.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD004589.rda"
   load(rda)
@@ -139,10 +216,21 @@ ours_PXD004589 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run) %>%
     dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD003497
-ours_PXD003497 <- function(groups, norm="median"){
+ours_PXD003497 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD003497_annotation_corrected.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD003497.rda"
   load(rda)
@@ -164,10 +252,21 @@ ours_PXD003497 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run,technical_replicate,sample_id) %>%
     dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD000672
-ours_PXD000672 <- function(groups, norm="median"){
+ours_PXD000672 <- function(groups, norm="median", tally=FALSE){
   # annot <- read.delim("../inputs/annotations/PXD000672_annotation.txt")
   # rda <- "../inputs/rdas/fdr1/PXD000672.rda"
   annot <- read.delim("../inputs/annotations/PXD000672_annotation_corrected.txt")
@@ -191,10 +290,21 @@ ours_PXD000672 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run) %>%
     dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD001064
-ours_PXD001064 <- function(groups, norm="median"){
+ours_PXD001064 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD001064_serum_annotation.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD001064_serum.rda"
   load(rda)
@@ -215,10 +325,21 @@ ours_PXD001064 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run) %>%
     dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD003539
-ours_PXD003539 <- function(groups, norm="median"){
+ours_PXD003539 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD003539_annotation.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD003539.rda"
   load(rda)
@@ -239,10 +360,21 @@ ours_PXD003539 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run) %>%
     dplyr::ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD014943
-ours_PXD014943 <- function(groups, norm="median"){
+ours_PXD014943 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD014943_annotation_corrected_norecalc.txt")
   rda <- "../inputs/rdas/fdr1_top3_inference/PXD014943.rda"
   load(rda)
@@ -263,6 +395,17 @@ ours_PXD014943 <- function(groups, norm="median"){
     dplyr::select(Protein,LogIntensities,matches("NormLogIntensities"),originalRUN,GROUP_ORIGINAL,SUBJECT_ORIGINAL,
                   feature_missingrate_per_group,feature_missingrate_per_run) %>%
     ungroup()
+  
+  if(tally) {
+    procdat <- tally_protpepirt(goldstandard.proposed, annot)   
+    rbind(procdat %>% dplyr::mutate(Analysis = as.character(Analysis)),
+          c("Total num of Proteins <50% features missing in group", nrow(our %>% 
+                                                                           dplyr::filter(feature_missingrate_per_group < 50) %>% 
+                                                                           dplyr::distinct(Protein))))
+  }
+  else {
+    return(our)
+  }
 }
 
 # PXD000
