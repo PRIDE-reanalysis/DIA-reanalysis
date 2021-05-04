@@ -23,30 +23,25 @@ source("../container/downstream/DIA_downstream_datacarpentry.R")
   
 
 tally_protpepirt <- function(rda, annot) {
-  # TODO: this is unreadable legacy code (and slow!!!) ; replace with tidyverse version
-  intensity_matrix<-matrix(ncol =length(annot$Run),
-                           nrow = length(levels(rda$RunlevelData$Protein)),
-                           dimnames = list(levels(rda$RunlevelData$Protein), annot$Run))
-  
-  for (i in seq(length(rda$RunlevelData$Protein))){
-    tmp_row_index <- which(rownames(intensity_matrix)==as.character(rda$RunlevelData$Protein[i]))
-    tmp_col_index <- which(colnames(intensity_matrix)==as.character(rda$RunlevelData$originalRUN[i]))
-    intensity_matrix[tmp_row_index,tmp_col_index]=rda$RunlevelData$LogIntensities[i]
-  }
-  
   irt_peptides <- nrow(rda$ProcessedData %>% 
                          dplyr::filter(PROTEIN=="1/iRT_protein") %>% 
                          dplyr::mutate(irtp =  gsub("_.*","",PEPTIDE) ) %>% dplyr::distinct(irtp)
                        )
+  prot_all <- length(levels(rda$RunlevelData$Protein))
   
+  prot_50 <- nrow(rda$RunlevelData %>% 
+                    dplyr::filter(!more50missing == TRUE) %>% 
+                    dplyr::distinct(Protein)
+                  )
+
   table_procdat <- data.frame(
     Analysis = c("Total num of proteins", 
                  "Total num of proteins with <50% missing values",
                  "Total num of iRT peptides",
                  "Total num of peptides"),
-    measure = c(dim(intensity_matrix)[1],
-                dim(intensity_matrix[rowSums(is.na(intensity_matrix)) < dim(intensity_matrix)[2]/2,])[1],
-                length(irt_peptides),
+    measure = c(prot_all,
+                prot_50,
+                irt_peptides,
                 length(levels(rda$ProcessedData$PEPTIDE)))
   )
   return(table_procdat)
