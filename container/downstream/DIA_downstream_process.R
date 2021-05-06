@@ -30,8 +30,8 @@ if (is.null(opt$tric) || is.null(opt$annot) ){
 
 
 source("/scripts/OpenSWATHtoMSstatsFormat.R")
+library(data.table)
 library(MSstats)
-
 
 print ("Loading tric file...")
 raw.openMS <- read.csv(opt$tric,
@@ -53,6 +53,7 @@ print("Run MSstats analysis...")
 goldstandard.proposed <-dataProcess(input.openms,
                                     normalization=FALSE,
                                     summaryMethod="TMP",
+                                    featureSubset="top3",
                                     cutoffCensored="minFeature", 
                                     censoredInt="0",
                                     MBimpute=TRUE,

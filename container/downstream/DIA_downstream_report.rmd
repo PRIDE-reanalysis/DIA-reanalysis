@@ -29,6 +29,7 @@ library(patchwork)
 source('/scripts/DIA_downstream_datacarpentry.R')
 ```
 
+# N.B.: the directory of wherever this rmd is in will be the working directory by default! e.g. /tmp/this.rmd will operate in /tmp/ and _not_ from where the Rcmd is being called from 
 ```{r, echo=FALSE}
 #Annotations still needed for plots and tables
 annot <- read.csv(params$ann,

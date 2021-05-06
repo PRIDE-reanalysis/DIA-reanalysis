@@ -339,7 +339,10 @@ process mzmlOSW {
             -ppm_irtwindow \
             -rt_extraction_window $params.openswath.rt_extraction_window \
             -Scoring:stop_report_after_feature 5 \
-            -Scoring:TransitionGroupPicker:compute_peak_quality false
+            -Scoring:TransitionGroupPicker:compute_peak_quality true \
+            -Scoring:TransitionGroupPicker:compute_peak_shape_metrics \
+            -Scoring:TransitionGroupPicker:background_subtraction ${params.openswath.background_subtraction} \
+            -Scoring:TransitionGroupPicker:min_peak_width ${params.openswath.min_peak_width}
         rm -rf ${params.out_dir}/tmp_cache/${mzML_file.baseName}
         """
     else
@@ -366,7 +369,10 @@ process mzmlOSW {
             -ppm_irtwindow \
             -rt_extraction_window $params.openswath.rt_extraction_window \
             -Scoring:stop_report_after_feature 5 \
-            -Scoring:TransitionGroupPicker:compute_peak_quality false
+            -Scoring:TransitionGroupPicker:compute_peak_quality true \
+            -Scoring:TransitionGroupPicker:compute_peak_shape_metrics \
+            -Scoring:TransitionGroupPicker:background_subtraction ${params.openswath.background_subtraction} \
+            -Scoring:TransitionGroupPicker:min_peak_width ${params.openswath.min_peak_width}
         rm -rf ${params.out_dir}/tmp_cache/${mzML_file.baseName}
         """
         // 2.5 only: Unknown option(s) '[x_ -ms1_isotopes, r_ -irt_mz_extraction_window_unit, r_ -mz_extraction_window_ms1_unit, x_ -mz_extraction_window_ms1, x_ -mz_extraction_window_unit]'  // x: deleted r: replacement

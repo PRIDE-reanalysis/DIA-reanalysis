@@ -95,8 +95,9 @@ process rdaMSSTATS {
 
     script:
     """
-    cp /scripts/DIA_downstream_report.rmd /tmp/
-    Rscript --vanilla -e "rmarkdown::render('/tmp/DIA_downstream_report.rmd', params = list(rda = '${rda_file}', ann = '${annotation}', pxdid = '${params.descriptor}') )"
+    # N.B.: the directory of wherever this rmd is in will be the working directory by default! e.g. /tmp/this.rmd will operate in /tmp/ and _not_ from where the Rcmd is being called from 
+    cp /scripts/DIA_downstream_report.rmd .
+    Rscript --vanilla -e "rmarkdown::render('DIA_downstream_report.rmd', params = list(rda = '${rda_file}', ann = '${annotation}', pxdid = '${params.descriptor}') )"
     """
     // no direct knit from /script/DIA_downstream_report.rmd - read-only filesystem
     // also means all output is being routed to /tmp/
