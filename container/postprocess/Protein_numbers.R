@@ -11,17 +11,9 @@ source("../container/postprocess/codify_study_customisations.R")
 # This needs a nifty table that has all the numbers collected
 protein_counts_all_projects <- read.delim("../R/protein_counts_all_projects.tsv")
 
-
-pxds <- c("PXD004873", "PXD000672", "PXD004691", "PXD014943", "PXD003497", "PXD004589", "PXD014194", "PXD003539", "PXD001064", "PXD010912")
-
-for ( i in pxds ) {
-  data <- get(paste("ours_",i,sep=""))(norm="median", tally=TRUE)
-  print(data)
-}  
-
 # define order manually
-PXD_order <- c("PXD004873*",
-               "PXD000672*",
+PXD_order <- c("PXD004873",
+               "PXD000672",
                "PXD004691",
                "PXD014943",
                "PXD003497",
@@ -51,9 +43,9 @@ fdr <- ggplot(protein_counts_all_projects %>%
 protein_comp <- read.delim("../R/protein_comparisons_where_available.tsv") %>% 
   #dplyr::rename(Reanalysis_runfiltered = Proteins..50..missing) %>%
   #dplyr::rename(Original_Data = Original...data) %>%
-  dplyr::rename(`Original data\n (Publication)` = Original...publication) %>%
-  dplyr::rename(`Reanalysis\n (unfiltered)` = Total.proteins ) %>%
-  dplyr::rename(`Reanalysis\n (consistencyfilter)` = X.50..per.group ) %>%
+  dplyr::rename(`Original data\n (Publication)` = Original...after.filter) %>%
+  dplyr::rename(`Reanalysis\n (unfiltered)` = Reanalysis.proteins ) %>%
+  dplyr::rename(`Reanalysis\n (consistencyfilter)` = Reanalysis.proteins...50..per.group. ) %>%
   dplyr::select(PXD,`Reanalysis\n (unfiltered)`,`Reanalysis\n (consistencyfilter)`,`Original data\n (Publication)`) %>% 
   tidyr::gather(Source, count, c(`Reanalysis\n (unfiltered)`,`Reanalysis\n (consistencyfilter)`,`Original data\n (Publication)`)) %>%
   #mutate(count =  na_if(count,"N/A")) %>%
