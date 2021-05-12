@@ -12,12 +12,12 @@ source("../container/postprocess/codify_study_customisations.R")
 protein_counts_all_projects <- read.delim("../R/protein_counts_all_projects.tsv")
 
 # define order manually
-PXD_order <- c("PXD004873",
-               "PXD000672",
+PXD_order <- c("PXD004873*",
+               "PXD000672*",
                "PXD004691",
                "PXD014943",
                "PXD003497",
-               "PXD004589",
+               "PXD004589*",
                "PXD014194",
                "PXD003539",
                "PXD001064",
@@ -40,7 +40,7 @@ fdr <- ggplot(protein_counts_all_projects %>%
   scale_fill_brewer(palette="Dark2")
 
 
-protein_comp <- read.delim("../R/protein_comparisons_where_available.tsv") %>% 
+protein_comp <- read.delim("../R/protein_comparisons_top3.tsv") %>% 
   #dplyr::rename(Reanalysis_runfiltered = Proteins..50..missing) %>%
   #dplyr::rename(Original_Data = Original...data) %>%
   dplyr::rename(`Original data\n (Publication)` = Original...after.filter) %>%
@@ -76,3 +76,36 @@ fdr + discovery + plot_annotation(tag_levels = 'A')
 #        height = 106, 
 #        units = "mm", dpi = 300
 # )
+
+
+protein_comp <- read.delim("../R/protein_comparisons_allinference.tsv") %>% 
+  #dplyr::rename(Reanalysis_runfiltered = Proteins..50..missing) %>%
+  #dplyr::rename(Original_Data = Original...data) %>%
+  dplyr::rename(`Original data\n (Publication)` = Original...after.filter) %>%
+  dplyr::rename(`Reanalysis\n (unfiltered)` = Reanalysis.proteins ) %>%
+  dplyr::rename(`Reanalysis\n (consistencyfilter)` = Reanalysis.proteins...50..per.group. ) %>%
+  dplyr::select(PXD,`Reanalysis\n (unfiltered)`,`Reanalysis\n (consistencyfilter)`,`Original data\n (Publication)`) %>% 
+  tidyr::gather(Source, count, c(`Reanalysis\n (unfiltered)`,`Reanalysis\n (consistencyfilter)`,`Original data\n (Publication)`)) %>%
+  #mutate(count =  na_if(count,"N/A")) %>%
+  #drop_na() %>%
+  dplyr::mutate(count = ifelse(count == "N/A", 0, count)) %>% mutate(count = as.numeric(count))
+
+# manually order the factors
+protein_comp <- protein_comp %>% mutate(order = case_when(
+  Source == "Reanalysis\n (unfiltered)" ~ 3,
+  Source == "Reanalysis\n (consistencyfilter)" ~ 2,
+  Source == "Original data\n (Publication)" ~ 1)) %>%
+  mutate(Source = fct_reorder(as.factor(Source), desc(order))) %>%
+  mutate(PXD = factor(PXD, levels=PXD_order))
+
+discovery_inference <- ggplot(protein_comp, aes(x=PXD, y=count, fill=Source)) +
+  geom_bar(stat='identity', position='dodge') +
+  ylab("Protein count") + 
+  theme_bw() + theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+                     panel.grid.major.x = element_blank(),
+                     legend.key.height = unit(30, "pt") ) +
+  scale_y_continuous(expand = c(0,0), breaks = seq(0, 10000, 4*250), minor_breaks = seq(0, 10000, 250)) + 
+  scale_fill_brewer(palette="Dark2")
+
+
+discovery + discovery_inference + plot_annotation(tag_levels = 'A')
