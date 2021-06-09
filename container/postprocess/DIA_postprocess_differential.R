@@ -46,7 +46,7 @@ fc_plot <- function(data, name, left_colour, right_colour, center_colour, fc_thr
                                                       )
                                               )
                     ), 
-                  aes(log.fc,log.pval, colour = threshold, size = 4)) +
+                  aes(log.fc,log.pval, colour = threshold, size = 2)) +
     geom_point(alpha = 0.75, show.legend = FALSE) +
     geom_hline(yintercept = 1.3, linetype = 2, alpha = 0.5) + # threshold indicators, semi-transparent
     geom_vline(xintercept = fc_threshold, linetype = 2, alpha = 0.5) +
@@ -134,6 +134,36 @@ calc_contrasts <- function(name, contrast_list){
     data <- get(paste("ours_",name,sep=""))(groups=c(grp1,grp2),norm="median")
     
     print(paste(grp1,grp2,sep="-"))
+    
+    grp1_names <- data %>% filter(GROUP_ORIGINAL == grp1) %>% distinct(originalRUN) %>% pull(originalRUN) %>% as.character()
+    grp2_names <- data %>% filter(GROUP_ORIGINAL == grp2) %>% distinct(originalRUN) %>% pull(originalRUN) %>% as.character()
+    
+    print( paste(length(grp1_names),"vs",length(grp2_names), sep = " ") )
+    
+    plot_data <- do_fc(data, grp1 = grp1, grp1_names = grp1_names, grp2 = grp2, grp2_names = grp2_names)
+    return_list[[as.name(paste("contrast",grp1,grp2,sep="-"))]] <- plot_data
+    print(paste(nrow(plot_data), "Proteins considered",sep = " "))
+    
+    plt <- fc_plot(plot_data, paste(name, paste(grp1,grp2,sep="-"), sep=" "))
+    return_list[[as.name(paste(grp1,grp2,sep="-"))]] <- plt
+  }    
+  return(return_list)
+}
+
+calc_ext_contrasts <- function(name, contrast_list){
+  return_list <- list()
+  print(name)
+  for (c in contrast_list ) {
+    grp1 <- c[[1]]
+    grp2 <- c[[2]]
+    data <- get(paste("theirs_",name,sep=""))()
+    
+    print(paste(grp1,grp2,sep="-"))
+    
+    data <- data %>% dplyr::filter(GROUP_ORIGINAL %in% c(grp1, grp2)) %>% 
+      mutate(feature_missingrate_per_group = 1) %>%  # assume already consistency filtered
+      mutate(NormLogIntensities = LogIntensities) %>% # assume already normalised
+      dplyr::filter(GROUP_ORIGINAL %in% c(grp1, grp2))
     
     grp1_names <- data %>% filter(GROUP_ORIGINAL == grp1) %>% distinct(originalRUN) %>% pull(originalRUN) %>% as.character()
     grp2_names <- data %>% filter(GROUP_ORIGINAL == grp2) %>% distinct(originalRUN) %>% pull(originalRUN) %>% as.character()
