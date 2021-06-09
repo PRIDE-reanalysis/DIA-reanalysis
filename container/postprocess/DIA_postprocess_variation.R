@@ -37,6 +37,7 @@ analyse_cv <- function(df) {
     geom_violin(trim=TRUE) +
     geom_boxplot(width=0.1) + 
     labs(title = "Coefficient of variation", x = "Types", y = "CV [%]") + 
+    ylim(0,100) +
     theme_bw() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
   return_list <- list("t_groups_cv" = groups, "t_subjects_cv" = subjects, "median_cv" = oamedian, "p_cv" = plot)

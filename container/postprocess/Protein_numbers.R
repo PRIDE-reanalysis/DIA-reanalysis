@@ -70,12 +70,18 @@ discovery <- ggplot(protein_comp, aes(x=PXD, y=count, fill=Source)) +
   scale_fill_brewer(palette="Dark2")
 
 
-fdr + discovery + plot_annotation(tag_levels = 'A')
-# ggsave('dia_paper_numbers_panel.png', fdr + discovery + plot_annotation(tag_levels = 'A') ,
-#        width = 160,
-#        height = 106, 
-#        units = "mm", dpi = 300
-# )
+panel_num <- fdr + discovery + plot_annotation(tag_levels = 'A')
+ggsave(
+  "dia_paper_numbers_panel_top3_oridata_update.pdf",
+  plot = panel_num,
+  device = "pdf",
+  scale = 1,
+  width = 38,
+  height = 19,
+  units = "cm" ,
+  dpi = 300,
+  limitsize = TRUE
+)
 
 
 protein_comp <- read.delim("../R/protein_comparisons_allinference.tsv") %>% 

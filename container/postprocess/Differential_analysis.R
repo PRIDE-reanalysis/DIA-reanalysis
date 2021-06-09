@@ -2,9 +2,9 @@ source("../container/downstream/DIA_downstream_datacarpentry.R")
 source("../container/postprocess/DIA_postprocess_differential.R")
 source("../container/postprocess/codify_study_customisations.R")
 
-pxds <- list("PXD014943" =  list(c("eDLBCL", "PCNSL") , c("IVL", "eDLBCL")),
+pxds <- list("PXD014943" = list(c("eDLBCL", "PCNSL") , c("eDLBCL", "IVL")),
              "PXD004691" = list(c("F-N", "F-T"), c("P-N","P-T")),
-             "PXD000672" = list(c("normal_ccRCC", "ccRCC"), c("ccRCC", "pRCC")) 
+             "PXD000672" = list(c("ccRCC", "normal_ccRCC"), c("ccRCC", "pRCC")) 
 )
 
 for (name in names(pxds)) {
@@ -14,14 +14,28 @@ for (name in names(pxds)) {
 # fix headers
 Contrast_PXD004691$`F-N-F-T` <- Contrast_PXD004691$`F-N-F-T` + labs(title="PXD004691 normal(ff)-PrC(ff)")
 Contrast_PXD004691$`P-N-P-T` <- Contrast_PXD004691$`P-N-P-T` + labs(title="PXD004691 normal(pe)-PrC(pe)")
-Contrast_PXD000672$`normal_ccRCC-ccRCC` <- Contrast_PXD000672$`normal_ccRCC-ccRCC` + labs(title="PXD000672 normal-ccRCC")
+Contrast_PXD000672$`ccRCC-normal_ccRCC` <- Contrast_PXD000672$`ccRCC-normal_ccRCC` + labs(title="PXD000672 ccRCC-normal")
 
 # make figure panel
-panel_de <- (Contrast_PXD014943$`eDLBCL-PCNSL`| Contrast_PXD014943$`IVL-eDLBCL`) / 
-  (Contrast_PXD004691$`F-N-F-T` | Contrast_PXD004691$`P-N-P-T` ) / 
-  (Contrast_PXD000672$`normal_ccRCC-ccRCC` | Contrast_PXD000672$`ccRCC-pRCC`) / 
-  plot_annotation(tag_levels = 'A')
+panel_de <- (Contrast_PXD014943$`eDLBCL-PCNSL` + ylim(0,30) | Contrast_PXD014943$`eDLBCL-IVL`+ ylim(0,30) ) / 
+  (Contrast_PXD004691$`F-N-F-T` + ylim(0,25) | Contrast_PXD004691$`P-N-P-T` + ylim(0,25) ) / 
+  (Contrast_PXD000672$`ccRCC-normal_ccRCC` + ylim(0,15) | Contrast_PXD000672$`ccRCC-pRCC`+ ylim(0,15) ) / 
+  plot_annotation(tag_levels = 'A', title = 'Volcano plots for differential expression')
 # panel_de
+# point size should be 2
+
+ggsave(
+  "dia_paper_volcano_panel_top3update.pdf",
+  plot = panel_de,
+  device = "pdf",
+  scale = 1,
+  width = 38,
+  height = 38,
+  units = "cm" ,
+  dpi = 300,
+  limitsize = TRUE
+)
+
 
 # write protein tables
 # not working :/
@@ -98,4 +112,26 @@ write.table(Contrast_PXD000672$`contrast-ccRCC-pRCC` %>%
             "PXD000672ccRCC-pRCC_log2fc>1.tsv",
             quote = FALSE, row.names = FALSE,
             sep = "\t")
+
+
+# recalc differential expressions with top3 imputation
+source("FC_variance_results_datacarpentry.R")
+
+PXD000672_1_1_top3 <- calc_contrasts("1_1_top3_PXD000672", list(c("ccRCC", "normal_ccRCC"), c("ccRCC", "pRCC")) )
+PXD004691_1_1_top3 <- calc_contrasts("1_1_top3_PXD004691", list(c("F-N", "F-T"), c("P-N","P-T")) )
+PXD014943_1_1_top3 <- calc_contrasts("1_1_top3_PXD014943", list(c("eDLBCL", "PCNSL") , c("eDLBCL", "IVL")) )
+
+# fix headers
+PXD004691_1_1_top3$`F-N-F-T` <- PXD004691_1_1_top3$`F-N-F-T` + labs(title="PXD004691 normal(ff)-PrC(ff)")
+PXD004691_1_1_top3$`P-N-P-T` <- PXD004691_1_1_top3$`P-N-P-T` + labs(title="PXD004691 normal(pe)-PrC(pe)")
+PXD000672_1_1_top3$`ccRCC-normal_ccRCC` <- PXD000672_1_1_top3$`ccRCC-normal_ccRCC` + labs(title="PXD000672 ccRCC-normal")
+PXD000672_1_1_top3$`ccRCC-pRCC` <- PXD000672_1_1_top3$`ccRCC-pRCC` + labs(title="PXD000672 ccRCC-pRCC")
+PXD014943_1_1_top3$`eDLBCL-PCNSL` <- PXD014943_1_1_top3$`eDLBCL-PCNSL` + labs(title="PXD014943 eDLBCL-PCNSL")
+PXD014943_1_1_top3$`eDLBCL-IVL` <- PXD014943_1_1_top3$`eDLBCL-IVL` + labs(title="PXD014943 eDLBCL-IVL")
+
+# make figure panel
+panel_de <- (PXD014943_1_1_top3$`eDLBCL-PCNSL` + ylim(0,30) | PXD014943_1_1_top3$`eDLBCL-IVL`+ ylim(0,30) ) / 
+  (PXD004691_1_1_top3$`F-N-F-T` + ylim(0,25) | PXD004691_1_1_top3$`P-N-P-T` + ylim(0,25) ) / 
+  (PXD000672_1_1_top3$`ccRCC-normal_ccRCC` + ylim(0,15) | PXD000672_1_1_top3$`ccRCC-pRCC`+ ylim(0,15) ) / 
+  plot_annotation(tag_levels = 'A', title = 'Volcano plots for differential expression')
 
