@@ -48,18 +48,3 @@ ggsave(
 
 Variances_reanalysis_PXD004691 <- analyse_cv(ours_PXD004691() %>% filter(feature_missingrate_per_group < 50) )
 # No reproduction of variance from original for PXD004691 possible, data starts at sample level (tech_rep already merged)
-
-
-source("FC_variance_results_datacarpentry.R")
-source("../container/postprocess/DIA_postprocess_variation.R")
-source("../container/postprocess/codify_study_customisations.R")
-source("../container/postprocess/codify_originalresult_integration.R")
-
-pxds <- c("PXD003497","PXD014194","PXD004873")
-for (p in pxds ){
-  print(p)
-  df1 <- get(paste("ours_1_1_top3_",p,sep=""))() %>% filter(feature_missingrate_per_group < 50) 
-  assign(paste("Variances_reanalysis_top3",p,sep="_"), analyse_cv(df1))
-  df2 <- get(paste("theirs_",p,sep=""))() %>% rename(NormLogIntensities = LogIntensities) # we have to assume their intensities are normalised and filtered
-  assign(paste("Variances_original",p,sep="_"), analyse_cv(df2))
-}
