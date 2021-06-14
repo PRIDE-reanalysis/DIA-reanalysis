@@ -51,7 +51,7 @@ tally_protpepirt <- function(rda, annot) {
 # PXD014194
 ours_PXD014194 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD014194_annotation_corrected.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD014194.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD014194.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -86,7 +86,7 @@ ours_PXD014194 <- function(groups, norm="median", tally=FALSE){
 # PXD010912
 ours_PXD010912 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD010912_annotation.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD010912.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD010912.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -121,7 +121,7 @@ ours_PXD010912 <- function(groups, norm="median", tally=FALSE){
 # PXD004873
 ours_PXD004873 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD004873_annotation_corrected.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD004873.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD004873.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -157,7 +157,7 @@ ours_PXD004873 <- function(groups, norm="median", tally=FALSE){
 ours_PXD004691 <- function(groups, norm="median", tally=FALSE){
   # annot <- read.delim("../inputs/annotations/PXD004691_annotation.txt") %>% dplyr::select(Run,Condition,BioReplicate,technical_replicate,sample_name)
   annot <- read.delim("../inputs/annotations/PXD004691_annotation_corrected.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD004691.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD004691.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -192,7 +192,7 @@ ours_PXD004691 <- function(groups, norm="median", tally=FALSE){
 # PXD004589
 ours_PXD004589 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD004589_annotation.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD004589.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD004589.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -227,7 +227,7 @@ ours_PXD004589 <- function(groups, norm="median", tally=FALSE){
 # PXD003497
 ours_PXD003497 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD003497_annotation_corrected.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD003497.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD003497.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -265,7 +265,7 @@ ours_PXD000672 <- function(groups, norm="median", tally=FALSE){
   # annot <- read.delim("../inputs/annotations/PXD000672_annotation.txt")
   # rda <- "../inputs/rdas/fdr1/PXD000672.rda"
   annot <- read.delim("../inputs/annotations/PXD000672_annotation_corrected.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD000672.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD000672.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -301,7 +301,7 @@ ours_PXD000672 <- function(groups, norm="median", tally=FALSE){
 # PXD001064
 ours_PXD001064 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD001064_serum_annotation.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD001064_serum.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD001064_serum.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -336,7 +336,7 @@ ours_PXD001064 <- function(groups, norm="median", tally=FALSE){
 # PXD003539
 ours_PXD003539 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD003539_annotation.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD003539.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD003539.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -371,7 +371,7 @@ ours_PXD003539 <- function(groups, norm="median", tally=FALSE){
 # PXD014943
 ours_PXD014943 <- function(groups, norm="median", tally=FALSE){
   annot <- read.delim("../inputs/annotations/PXD014943_annotation_corrected_norecalc.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD014943.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD014943.rda"
   load(rda)
   
   if(missing(groups)) {
@@ -406,7 +406,7 @@ ours_PXD014943 <- function(groups, norm="median", tally=FALSE){
 # PXD000
 ours_test <- function(diff, groups, norm="median") {
   annot <- read.delim("../inputs/annotations/PXD014943_annotation_corrected_norecalc.txt")
-  rda <- "../inputs/rdas/fdr1_top3_inference/PXD014943.rda"
+  rda <- "../inputs/intermediate-results/msstats_rdas/fdr1_top3_inference/PXD014943.rda"
   load(rda)
   
   if(missing(groups)) {

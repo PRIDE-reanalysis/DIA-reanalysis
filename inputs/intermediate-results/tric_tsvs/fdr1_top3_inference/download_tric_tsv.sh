@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD000672.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD001064.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD003497.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD003539.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD004589.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD004691.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD004873.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD010912.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD014194.tric.tsv.tar.gz'
+curl  -O -J 'https://uk1s3.embassy.ebi.ac.uk/DIA-reanalysis/intermediate-results/tric_tsvs/PXD014943.tric.tsv.tar.gz'
