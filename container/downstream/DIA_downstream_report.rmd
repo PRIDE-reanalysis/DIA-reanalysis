@@ -5,6 +5,7 @@ output:
 params:
   rda: ""
   ann: ""
+  idf: ""
   pxdid: "REPLACEME"
 ---
 
@@ -12,11 +13,10 @@ params:
 title: `r paste("DIA PRIDEreanalysis (downstream)", params$pxdid, sep = " - ")`
 ---
 
-## DIA analysis with MSstats
-
 ```{r include=FALSE}
 # Load required libraries
 library('tinytex')
+library(mygene)
 require(tidyverse)
 require(stringr)
 library(MSstats)
@@ -26,11 +26,49 @@ library(RColorBrewer)
 library(heatmap3)
 library(ggplot2)
 library(patchwork)
+library(ggdendro)
+
 source('/scripts/DIA_downstream_datacarpentry.R')
 ```
 
-# N.B.: the directory of wherever this rmd is in will be the working directory by default! e.g. /tmp/this.rmd will operate in /tmp/ and _not_ from where the Rcmd is being called from 
+### General dataset information
 ```{r, echo=FALSE}
+idf  <- read.table( params$idf, quote = "\"", header = TRUE, sep = "\t", stringsAsFactors = FALSE, comment.char = "#") 
+
+ds_title <- idf[idf$MAGE.TAB.Version == "Investigation Title",2]
+PI_name <- paste(idf[idf$MAGE.TAB.Version == "Person Last Name",3], idf[idf$MAGE.TAB.Version == "Person First Name",3], sep = ", ")
+PI_email <- idf[idf$MAGE.TAB.Version == "Person Email",3]
+Submitter_name <- paste(idf[idf$MAGE.TAB.Version == "Person Last Name",2], idf[idf$MAGE.TAB.Version == "Person First Name",2], sep = ", ")
+Submitter_email <- idf[idf$MAGE.TAB.Version == "Person Email",2]
+pubmed_id <- idf[idf$MAGE.TAB.Version == "PubMed ID",2]
+pride_link <- paste("https://www.ebi.ac.uk/pride/archive/projects/", params$pxdid, sep="") 
+affiliation <- idf[idf$MAGE.TAB.Version == "Person Address",3]
+
+dataset_affiliation <- data.frame( 
+  c("PRIDE dataset URL:",
+    "Lab Head:",
+    "E-mail:",
+    "Affiliation:",
+    "Original dataset submitter:",
+    "E-mail:",
+    "PubMed ID:"), 
+  c(pride_link,
+    PI_name,
+    PI_email, 
+    affiliation,
+    Submitter_name,
+    Submitter_email,
+    pubmed_id)
+  )
+```
+#### `r ds_title`
+
+```{r, echo=FALSE, warning=FALSE}
+kable(dataset_affiliation, col.names = NULL)
+```
+Please find the experimental design used in the reanalysis in the [appendix](#ed).
+
+```{r, echo=FALSE, warning=FALSE}
 #Annotations still needed for plots and tables
 annot <- read.csv(params$ann,
                       header = TRUE,
@@ -39,68 +77,122 @@ annot <- read.csv(params$ann,
 #msstats_result get from DIA_downstream_process.R output (rename object)
 assign('msstats_result', get(load(file=params$rda)))
 
-prepro <- process_msstats_rda(msstats_result,annot)
+#this does no filtering but produces the right columns to efficiently filter
+#it also removes the isoform subclassification from Protein as new simple_protein column
+prepro <- process_msstats_rda(msstats_result,annot) %>% 
+  dplyr::mutate(simple_protein = str_replace_all(Protein, ";[0-9]*(?=(/|$))", ''))
 
-write.table(prepro %>%
+all_runs <- length(levels(msstats_result$ProcessedData$RUN))
+all_peptides <- length(levels(msstats_result$ProcessedData$PEPTIDE))
+irt_peptides <- nrow(msstats_result$ProcessedData %>% 
+                         dplyr::filter(PROTEIN=="1/iRT_protein") %>% 
+                         dplyr::mutate(irtp =  gsub("_.*","",PEPTIDE) ) %>%
+                         dplyr::distinct(irtp))
+total_proteins <- nrow(prepro %>% distinct(simple_protein) )
+
+# consistency filter
+consistencyfilter <- prepro %>% dplyr::filter(feature_missingrate_per_group < 50)
+distinct_proteins_rejected_consistencyfilter <- nrow(prepro %>% distinct(simple_protein) ) - nrow(consistencyfilter %>% distinct(simple_protein) )
+
+# query mapping ids
+lookup_targets <- unique(unlist(str_split(unique(consistencyfilter$simple_protein), "/")))
+# lookup needs to be uniquified some (hard) way, since there will be undecideable situations like this query result:
+#3110	O14950	103910	2.795922	103910	myosin light chain 12B	MYL12B	9606	NA
+#3111	O14950	10627	2.223857	10627	myosin light chain 12A	MYL12A	9606	NA
+# hence the use of `distinct`
+lookup_result <- as.data.frame(queryMany(lookup_targets)) %>% distinct(query, .keep_all = TRUE) 
+rownames(lookup_result) <- lookup_result$query
+
+id_lookup <- function(id) {
+  lookup_list <- list()
+  for (i in unlist(stringr::str_split(id, "/"))) {
+    if (!is.na(lookup_result[i,]$notfound)) {new_element <- NA}
+    else {new_element <- lookup_result[i,]$entrezgene}
+    lookup_list[[length(lookup_list) + 1]] <- new_element
+  }  
+  if (length(unique(unlist(lookup_list))) >1) { return(NA) }
+  else { return(unlist(lookup_list)[[1]]) }
+} 
+#idfilter <- decoyfilter %>% mutate(lookup = across(Protein, id_lookup))
+#decoyfilter$geneid <- mapply(id_lookup, decoyfilter$Protein)
+#decoyfilter['lookup'] <- lapply(decoyfilter['Protein'], id_lookup)
+#id_lookup_V <- Vectorize(id_lookup)
+
+# id filter
+idfilter <- consistencyfilter %>% 
+  dplyr::mutate(entrezgene = map_chr(simple_protein, id_lookup)) %>%
+  dplyr::filter(!is.na(entrezgene)) %>%
+  dplyr::distinct(entrezgene, originalRUN, .keep_all = TRUE)  # make sure to not remove too many 
+distinct_proteins_rejected_idfilter <- nrow(consistencyfilter %>% distinct(simple_protein) ) - nrow(idfilter %>% distinct(entrezgene) )
+
+# decoy filter
+decoyfilter <- idfilter %>% 
+  dplyr::filter(across(Protein, ~ !grepl('DECOY', .)))
+nrejects_decoyfilter <- nrow(prepro) - nrow(decoyfilter)
+distinct_proteins_rejected_decoyfilter <- nrow(idfilter %>% distinct(entrezgene) ) - nrow(decoyfilter %>% distinct(entrezgene) )
+total_geneproducts <- nrow(decoyfilter %>% distinct(entrezgene) )
+
+dataset_numbers <- data.frame( 
+  c("Runs analysed",
+  "iRT peptides detected",
+  "Total peptides",
+  "Total proteins",
+  "removed by consistency filter",
+  "removed by id filter",
+  "removed by decoy filter",
+  "Total geneproducts"),
+  c(all_runs,
+  irt_peptides,
+  all_peptides,
+  total_proteins,
+  distinct_proteins_rejected_consistencyfilter,
+  distinct_proteins_rejected_idfilter,
+  distinct_proteins_rejected_decoyfilter,
+  total_geneproducts
+  )
+)
+
+write.table(decoyfilter %>%
   dplyr::mutate(Intensities = `^`(2,LogIntensities)) %>%
-  dplyr::select(Protein, originalRUN, Intensities) %>%
+  dplyr::select(entrezgene, originalRUN, Intensities) %>%
   tidyr::spread(originalRUN, Intensities),
             paste(params$pxdid,"_baseline_raw_untransformed.tsv",sep=""),
             quote = FALSE,
             sep = "\t",
             row.names = FALSE)
 
-protein_matrix <- prepro %>%
-  dplyr::filter(feature_missingrate_per_group < 50) %>%
+protein_matrix <- decoyfilter %>%
   dplyr::mutate(NormIntensities = `^`(2,NormLogIntensities)) %>%
   dplyr::select(Protein, originalRUN, NormIntensities) %>%
-  tidyr::spread(originalRUN, NormIntensities) 
+  tidyr::spread(originalRUN, NormIntensities)
 
-write.table(protein_matrix,
+write.table(decoyfilter %>%
+  dplyr::mutate(NormIntensities = `^`(2,NormLogIntensities)) %>%
+  dplyr::select(entrezgene, originalRUN, NormIntensities) %>%
+  tidyr::spread(originalRUN, NormIntensities),
             paste(params$pxdid,"_baseline_mediannorm_untransformed.tsv",sep=""),
             quote = FALSE,
             sep = "\t",
             row.names = FALSE)
 
 ```
+### Processing Summary
+* MSstats
+* Median-normalisation
+* Protein ID to Ensembl Gene ID mapping
+* Protein-filter
+* (differential expression)
 
-### Annotation table:
-```{r, echo=FALSE}
-
-table_legend = data.frame(
-  index = seq(length(annot$Run)),
-  file_names = unlist(tstrsplit(annot$Run, "[.]", keep=1)),
-  Condition = annot$Condition,
-  BioReplicate = annot$BioReplicate
-)
-kable(table_legend)
-
-```
+#### Protein Filters Applied
+* Remove reverse decoys.
+* Include protein groups to which 2 or more unique peptides are mapped.
+* Include protein groups of which all protein IDs are mapped to one unique Ensembl Gene ID.
+* Include protein groups of which with <50% missing features per experiment group
+* Include protein groups of which <50% missing feature per run
 
 ###  Detection numbers
-
-```{r, echo=FALSE}
-prot_tot_distinct <- prepro %>% dplyr::distinct(Protein) %>% nrow(.)
-prot_tot_l50r <- prepro %>% dplyr::filter(feature_missingrate_per_run > 50) %>% dplyr::distinct(Protein) %>% nrow(.)
-prot_tot_l50g <- prepro %>% dplyr::filter(feature_missingrate_per_group > 50) %>% dplyr::distinct(Protein) %>% nrow(.)
-pep_tot <- length(levels(msstats_result$ProcessedData$PEPTIDE))
-irt_peptides <- unique(as.character(msstats_result$ProcessedData[which(msstats_result$ProcessedData$PROTEIN=="1/iRT_protein"),"PEPTIDE"]))
-irt_peptides = tryCatch(length(unique(unlist(tstrsplit(irt_peptides, "_", keep=1)))), 
-                        error = function(e) 0)
-
-kable(data.frame(
-    Analysis = c("Total num of proteins", 
-                 "Total num of proteins with <50% missing features per group",
-                 "Total num of proteins with <50% missing feature per run",
-                 "Total num of iRT peptides",
-                 "Total num of peptides"),
-    Measure = c(prot_tot_distinct,
-                prot_tot_l50g,
-                prot_tot_l50r,
-                irt_peptides,
-                pep_tot)),
-    col.names = NA)
-
+```{r, echo=FALSE, warning=FALSE}
+kable(dataset_numbers, col.names = NULL)
 ```
 
 \newpage
@@ -120,43 +212,85 @@ kable(data.frame(
     scale_fill_discrete(name="Experimental\nCondition") +
     theme(legend.position = "none", axis.text.y=element_text(size=rel(0.5))) + 
     labs(title=paste("Median normalised LogIntensities", params$pxdid, sep = " "),x="LogIntensity", y = "Runs")
-  
+```
+
+```{r, fig.height = 10, fig.width = 8, echo = FALSE}
 # ru / nu + plot_layout(guides = "collect") & theme(legend.position = "right") 
 ru
+```
+Figure 1. Raw protein intensities across all runs. Bar colour indicates the condition group the run is in.
+
+```{r, fig.height = 10, fig.width = 8, echo = FALSE}
 nu
 ```
+Figure 2. Median normalised protein intensities across all runs. Bar colour indicates the condition group the run is in.
+
+```{r, fig.height = 10, fig.width = 8, echo = FALSE}
+# ggplot(decoyfilter %>% dplyr::count(Protein) %>% slice_max(order_by = n, n = 250) %>%  arrange(desc(n)) , aes(x=Protein, y=n)) + 
+#   geom_bar(stat = "identity") +
+#   geom_text(aes(label = n), colour="white", size=2, vjust=1.5) +
+#   theme(axis.text.x = element_text(angle=-45, vjust=0.5, hjust=0)) + 
+#   labs(y = "count") +
+#   scale_y_continuous(expand = c(0, 0)) 
+# Protein overlap. Indicates the number of protein groups that were identified across different number of samples for the top250 most ocurring proteins.  
+
+# We might be better served with a boxplot?
+ggplot(decoyfilter %>% dplyr::count(Protein) %>% slice_max(order_by = n, n = 250) %>%  arrange(desc(n)) %>% mutate(overlap_distribution = "Overlap distribution"), aes(y=n, x=)) + 
+  geom_boxplot(notch=TRUE) + coord_flip() +
+  labs(y = "Ocurrances per protein group") +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+
+```
+Figure 3. Protein overlap distribution. Boxplot illustrating the distribution of protein group occurrences in multiple runs.
+
+
+```{r, fig.height = 10, fig.width = 8, echo = FALSE}
+ggplot(decoyfilter, aes(x=originalRUN)) + 
+  geom_bar() +
+  geom_text(aes(label = ..count..), stat="count", colour="white", size=2, vjust=1.5) +
+  theme(axis.text.x = element_text(angle=-45, vjust=0.5, hjust=0)) + 
+  scale_y_continuous(expand = c(0, 0))
+
+```
+Figure 4. Protein counts in each sample. The total number of proteins (SwissProt non-isoforms) from all protein groups to which at least 2 or more unique peptides from each sample are mapped to.
 
 ### Clustering
-```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE}
-protein_matrix <- protein_matrix %>% column_to_rownames(var = "Protein")
-protein_matrix[is.na(protein_matrix)]=0
-pca_analysis<-prcomp(t(protein_matrix))
-var_expl <- pca_analysis$sdev^2/sum(pca_analysis$sdev^2)
-
-par(mar=c(5.1, 4.1, 4.1, 5.1), xpd=TRUE)
-plot(pca_analysis$x, type="n",
-     main="PCA Analysis:",
-     xlab = paste0("PC1 (", as.character(round(var_expl[1]*100,1)), "%)"),
-     ylab = paste0("PC2 (", as.character(round(var_expl[2]*100,1)), "%)"))
-text(pca_analysis$x, 
-     cex = 0.7,
-     label=seq(length(annot$Run)),
-     col = as.numeric(as.factor(annot$Condition)))
-
-
-legend("topright", inset=c(-.2,0), legend =levels(as.factor(annot$Condition)),pch=16, pt.cex=1.5, cex=0.75, bty='n',
-    col = seq_along(levels(as.factor(annot$Condition))))
+```{r echo=FALSE, warning=FALSE}
+pca_input <- protein_matrix %>% column_to_rownames(var = "Protein")
+pca_input[is.na(pca_input)]=0
+pca_analysis <- prcomp(t(pca_input), scale=FALSE)
+pca_plot_data <- data.frame(pca_analysis$x[,1:2]) # Take components 1 and 2
 ```
 
-```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE}
-par(mar=c(5,5,2,2),xaxs = "i",yaxs = "i",cex.axis=0.4,cex.lab=10)
-my_group1 <- as.numeric(as.factor(annot$Condition))
+```{r pca_plot_data, fig.height = 10, fig.width = 8, echo = FALSE}
+ggplot(pca_plot_data, aes(x=PC1, y = PC2, colour = rownames(pca_plot_data)))+
+  geom_point(alpha=0.6)+
+  labs(x="PC1", y="PC2")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  labs(color="Samples") +
+  theme(legend.position = "bottom")+
+  theme(legend.key.size = unit(0.3,"line"))+
+  guides(col = guide_legend(ncol = 3))+
+  ggtitle("PCA")
+```
+Figure 5. PCA plot. The normalised intensity values of detected proteins are used to compute the priniciple components. Data colour indicates condition group the run is in.
 
-Condition <- brewer.pal(9, "Set1")[my_group1]
+
+```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE, eval=FALSE}
+par(mar=c(5,5,2,2),xaxs = "i",yaxs = "i",cex.axis=0.4,cex.lab=10)
+condition_grouping <- as.numeric(as.factor(annot$Condition))
+
+hclust_input <- t(protein_matrix %>% column_to_rownames("Protein"))
+hclust_input[is.na(hclust_input)]=0
+
+Condition <- brewer.pal( length(unique(annot$Condition)) , "Set1")[condition_grouping]
 colSide <-cbind(Condition)
 colMain <- colorRampPalette(brewer.pal(10, "Blues"))(25)
-cor_results <- cor(protein_matrix)
-ColSideAnn<-data.frame(Condition=my_group1,stringsAsFactors=TRUE)
+cor_results <- cor( hclust_input )
+ColSideAnn<-data.frame(Condition=condition_grouping,stringsAsFactors=TRUE)
 heatmap3(main="Hierarchical Cluster Analysis:",
          cor_results, 
          RowSideColors=colSide,
@@ -168,25 +302,67 @@ heatmap3(main="Hierarchical Cluster Analysis:",
          ColSideAnn=ColSideAnn,
          ColSideWidth = 10,
          legendfun=function() showLegend(legend=levels(as.factor(annot$Condition)),col=brewer.pal(9, "Set1")[seq_along(levels(as.factor(annot$Condition)))], cex=.9, title="Condition"))
+# replace with
+# https://jcoliver.github.io/learn-r/008-ggplot-dendrograms-and-heatmaps.html
+
+
+# Run clustering
+run.dendro <- as.dendrogram(hclust(d = dist(x = as.matrix(hclust_input))))
+dendro.order <- order.dendrogram(run.dendro)
+
+# Create dendro
+dendro.plot <- ggdendrogram(data = run.dendro, rotate = TRUE) + theme(axis.text.y = element_text(size = 5))
+
+# Preview the plot
+print(dendro.plot)
+
+hclust.long <- decoyfilter %>%
+  dplyr::mutate(NormIntensities = `^`(2,NormLogIntensities)) %>%
+  dplyr::select(Protein, originalRUN, NormLogIntensities)
+
+hclust.order <- as.data.frame(hclust_input) %>% rownames_to_column("originalRUN")
+
+# Order the levels according to their position in the cluster
+hclust.long$originalRUN <- factor(x = hclust.long$originalRUN,
+                               levels = hclust.order$originalRUN[dendro.order], 
+                               ordered = TRUE)
+
+
+heatmap.plot <- ggplot(data = hclust.long, aes(x = Protein, y = originalRUN)) +
+  geom_tile(aes(fill = NormLogIntensities)) +
+  scale_fill_gradient2() +
+  theme(axis.text.y = element_text(size = 6)) + 
+  labs(x = "Protein groups", y = "Runs") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        legend.position = "top")
+
+
+# Preview the heatmap
+print(heatmap.plot)
+
+library(grid)
+grid.newpage()
+print(heatmap.plot, vp = viewport(x = 0.4, y = 0.5, width = 0.7, height = 1.0))
+print(dendro.plot, vp = viewport(x = 0.90, y = 0.38, width = 0.2, height = .975))
+
 ```
+Figure 6. Hierarchical cluster of normalised log2 protein intensities.
 
-```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE}
-par(mar=c(5,5,2,2),xaxs = "i",yaxs = "i",cex.axis=0.4,cex.lab=10)
-my_group1 <- as.numeric(as.factor(annot$Condition))
+### Appendix
+#### Experimental Design {#ed}
+```{r, echo=FALSE}
 
-Condition <- brewer.pal(9, "Set1")[my_group1]
-colSide <-cbind(Condition)
-colMain <- colorRampPalette(brewer.pal(10, "Blues"))(25)
-cor_results <- cor(protein_matrix)
-ColSideAnn<-data.frame(Condition=my_group1,stringsAsFactors=TRUE)
-heatmap3(cor_results, 
-         RowSideColors=colSide,
-         ColSideColors=colSide,
-         col=colMain,
-         labRow = seq(length(annot$Run)),
-         cexRow = 0.4,
-         labCol = FALSE,
-         ColSideAnn=ColSideAnn,
-         ColSideWidth = 10,
-         legendfun=function() showLegend(legend=levels(as.factor(annot$Condition)),col=brewer.pal(9, "Set1")[seq_along(levels(as.factor(annot$Condition)))], cex=.9, title="Condition"))
+table_legend = data.frame(
+  index = seq(length(annot$Run)),
+  file_names = unlist(tstrsplit(annot$Run, "[.]", keep=1)),
+  Condition = annot$Condition,
+  BioReplicate = annot$BioReplicate
+)
+kable(table_legend)
+
 ```
