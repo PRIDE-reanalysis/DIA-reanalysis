@@ -27,22 +27,24 @@ library(heatmap3)
 library(ggplot2)
 library(patchwork)
 library(ggdendro)
+library(grid)
+library(patchwork)
 
 source('/scripts/DIA_downstream_datacarpentry.R')
 ```
 
 ### General dataset information
-```{r, echo=FALSE}
-idf  <- read.table( params$idf, quote = "\"", header = TRUE, sep = "\t", stringsAsFactors = FALSE, comment.char = "#") 
+```{r echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+idf  <- read.table( params$idf, quote = "\"", header = TRUE, sep = "\t", stringsAsFactors = FALSE, comment.char = "#", col.names = paste0("V",seq_len(3)), fill = TRUE)
 
-ds_title <- idf[idf$MAGE.TAB.Version == "Investigation Title",2]
-PI_name <- paste(idf[idf$MAGE.TAB.Version == "Person Last Name",3], idf[idf$MAGE.TAB.Version == "Person First Name",3], sep = ", ")
-PI_email <- idf[idf$MAGE.TAB.Version == "Person Email",3]
-Submitter_name <- paste(idf[idf$MAGE.TAB.Version == "Person Last Name",2], idf[idf$MAGE.TAB.Version == "Person First Name",2], sep = ", ")
-Submitter_email <- idf[idf$MAGE.TAB.Version == "Person Email",2]
-pubmed_id <- idf[idf$MAGE.TAB.Version == "PubMed ID",2]
-pride_link <- paste("https://www.ebi.ac.uk/pride/archive/projects/", params$pxdid, sep="") 
-affiliation <- idf[idf$MAGE.TAB.Version == "Person Address",3]
+ds_title <- idf[idf$V1 == "Investigation Title",2]
+PI_name <- paste(idf[idf$V1 == "Person Last Name",3], idf[idf$V1 == "Person First Name",3], sep = ", ")
+PI_email <- idf[idf$V1 == "Person Email",3]
+Submitter_name <- paste(idf[idf$V1 == "Person Last Name",2], idf[idf$V1 == "Person First Name",2], sep = ", ")
+Submitter_email <- idf[idf$V1 == "Person Email",2]
+pubmed_id <- idf[idf$V1 == "PubMed ID",2]
+pride_link <- paste("https://www.ebi.ac.uk/pride/archive/projects/", "PLACEHOLDER", sep="") 
+affiliation <- idf[idf$V1 == "Person Address",3]
 
 dataset_affiliation <- data.frame( 
   c("PRIDE dataset URL:",
@@ -68,7 +70,7 @@ kable(dataset_affiliation, col.names = NULL)
 ```
 Please find the experimental design used in the reanalysis in the [appendix](#ed).
 
-```{r, echo=FALSE, warning=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 #Annotations still needed for plots and tables
 annot <- read.csv(params$ann,
                       header = TRUE,
@@ -94,8 +96,14 @@ total_proteins <- nrow(prepro %>% distinct(simple_protein) )
 consistencyfilter <- prepro %>% dplyr::filter(feature_missingrate_per_group < 50)
 distinct_proteins_rejected_consistencyfilter <- nrow(prepro %>% distinct(simple_protein) ) - nrow(consistencyfilter %>% distinct(simple_protein) )
 
+# decoy filter
+decoyfilter <- consistencyfilter %>% 
+  dplyr::filter(across(Protein, ~ !grepl('DECOY', .)))
+nrejects_decoyfilter <- nrow(prepro) - nrow(decoyfilter)
+distinct_proteins_rejected_decoyfilter <- nrow(consistencyfilter %>% distinct(simple_protein) ) - nrow(decoyfilter %>% distinct(simple_protein) )
+
 # query mapping ids
-lookup_targets <- unique(unlist(str_split(unique(consistencyfilter$simple_protein), "/")))
+lookup_targets <- unique(unlist(str_split(unique(decoyfilter$simple_protein), "/")))
 # lookup needs to be uniquified some (hard) way, since there will be undecideable situations like this query result:
 #3110	O14950	103910	2.795922	103910	myosin light chain 12B	MYL12B	9606	NA
 #3111	O14950	10627	2.223857	10627	myosin light chain 12A	MYL12A	9606	NA
@@ -119,18 +127,17 @@ id_lookup <- function(id) {
 #id_lookup_V <- Vectorize(id_lookup)
 
 # id filter
-idfilter <- consistencyfilter %>% 
+idfilter <- decoyfilter %>% 
   dplyr::mutate(entrezgene = map_chr(simple_protein, id_lookup)) %>%
   dplyr::filter(!is.na(entrezgene)) %>%
-  dplyr::distinct(entrezgene, originalRUN, .keep_all = TRUE)  # make sure to not remove too many 
-distinct_proteins_rejected_idfilter <- nrow(consistencyfilter %>% distinct(simple_protein) ) - nrow(idfilter %>% distinct(entrezgene) )
+  dplyr::group_by(entrezgene, originalRUN) %>%
+  #group_by(across(c(-LogIntensities, -NormLogIntensities, -Protein, -simple_protein))) %>%
+  dplyr::summarise_each(funs(if(is.numeric(.)) median(., na.rm = TRUE) else first(.))) %>%
+  dplyr::ungroup()
+  #dplyr::distinct(entrezgene, originalRUN, .keep_all = TRUE)  # make sure to not remove too many 
+distinct_proteins_rejected_idfilter <- nrow(decoyfilter %>% distinct(simple_protein) ) - nrow(idfilter %>% distinct(entrezgene) )
+total_geneproducts <- nrow(idfilter %>% distinct(entrezgene) )
 
-# decoy filter
-decoyfilter <- idfilter %>% 
-  dplyr::filter(across(Protein, ~ !grepl('DECOY', .)))
-nrejects_decoyfilter <- nrow(prepro) - nrow(decoyfilter)
-distinct_proteins_rejected_decoyfilter <- nrow(idfilter %>% distinct(entrezgene) ) - nrow(decoyfilter %>% distinct(entrezgene) )
-total_geneproducts <- nrow(decoyfilter %>% distinct(entrezgene) )
 
 dataset_numbers <- data.frame( 
   c("Runs analysed",
@@ -154,9 +161,18 @@ dataset_numbers <- data.frame(
 
 write.table(decoyfilter %>%
   dplyr::mutate(Intensities = `^`(2,LogIntensities)) %>%
-  dplyr::select(entrezgene, originalRUN, Intensities) %>%
+  dplyr::select(Protein, originalRUN, Intensities) %>%
   tidyr::spread(originalRUN, Intensities),
             paste(params$pxdid,"_baseline_raw_untransformed.tsv",sep=""),
+            quote = FALSE,
+            sep = "\t",
+            row.names = FALSE)
+
+write.table(decoyfilter %>%
+  dplyr::mutate(NormIntensities = `^`(2,NormLogIntensities)) %>%
+  dplyr::select(Protein, originalRUN, NormIntensities) %>%
+  tidyr::spread(originalRUN, NormIntensities),
+            paste(params$pxdid,"_baseline_mediannorm_untransformed.tsv",sep=""),
             quote = FALSE,
             sep = "\t",
             row.names = FALSE)
@@ -166,16 +182,26 @@ protein_matrix <- decoyfilter %>%
   dplyr::select(Protein, originalRUN, NormIntensities) %>%
   tidyr::spread(originalRUN, NormIntensities)
 
-write.table(decoyfilter %>%
+write.table(idfilter %>%
+  dplyr::mutate(Intensities = `^`(2,LogIntensities)) %>%
+  dplyr::select(entrezgene, originalRUN, Intensities) %>%
+  tidyr::spread(originalRUN, Intensities),
+            paste(params$pxdid,"_baseline_raw_untransformed_genefilter.tsv",sep=""),
+            quote = FALSE,
+            sep = "\t",
+            row.names = FALSE)
+
+write.table(idfilter %>%
   dplyr::mutate(NormIntensities = `^`(2,NormLogIntensities)) %>%
   dplyr::select(entrezgene, originalRUN, NormIntensities) %>%
   tidyr::spread(originalRUN, NormIntensities),
-            paste(params$pxdid,"_baseline_mediannorm_untransformed.tsv",sep=""),
+            paste(params$pxdid,"_baseline_mediannorm_untransformed_genefilter.tsv",sep=""),
             quote = FALSE,
             sep = "\t",
             row.names = FALSE)
 
 ```
+\newpage
 ### Processing Summary
 * MSstats
 * Median-normalisation
@@ -190,13 +216,11 @@ write.table(decoyfilter %>%
 * Include protein groups of which with <50% missing features per experiment group
 * Include protein groups of which <50% missing feature per run
 
-###  Detection numbers
+####  Results summary
 ```{r, echo=FALSE, warning=FALSE}
 kable(dataset_numbers, col.names = NULL)
 ```
-
 \newpage
-
 ### Normalisation inspection
 ```{r, echo=FALSE, fig.align="center"}
 
@@ -205,39 +229,41 @@ kable(dataset_numbers, col.names = NULL)
     geom_boxplot(outlier.size = 0.5) + 
     scale_fill_discrete(name="Experimental\nCondition") +
     theme(legend.position = "none", axis.text.y=element_text(size=rel(0.5))) + 
-    labs(title=paste("Raw LogIntensities", params$pxdid, sep = " "),x="LogIntensity", y = "Runs")
+    labs(title=paste("Raw LogIntensities", params$pxdid, sep = " "),x="LogIntensity", y = "Runs") + 
+    scale_x_continuous(limits = c(log2(0.05), NA))
   nu <- ggplot(prepro, 
                aes(x = NormLogIntensities , y = originalRUN , fill = GROUP_ORIGINAL) ) +
     geom_boxplot(outlier.size = 0.5) + 
     scale_fill_discrete(name="Experimental\nCondition") +
     theme(legend.position = "none", axis.text.y=element_text(size=rel(0.5))) + 
-    labs(title=paste("Median normalised LogIntensities", params$pxdid, sep = " "),x="LogIntensity", y = "Runs")
+    labs(title=paste("Median normalised LogIntensities", params$pxdid, sep = " "),x="LogIntensity", y = "Runs") + 
+    scale_x_continuous(limits = c(log2(0.0005), NA))
 ```
 
 ```{r, fig.height = 10, fig.width = 8, echo = FALSE}
 # ru / nu + plot_layout(guides = "collect") & theme(legend.position = "right") 
 ru
 ```
-Figure 1. Raw protein intensities across all runs. Bar colour indicates the condition group the run is in.
+Figure 1. Raw protein intensities across all runs. Bar colour indicates the condition group the run is in. (Intensity values below log2(0.05) are not shown.)
 
 ```{r, fig.height = 10, fig.width = 8, echo = FALSE}
 nu
 ```
-Figure 2. Median normalised protein intensities across all runs. Bar colour indicates the condition group the run is in.
+Figure 2. Median normalised protein intensities across all runs. Bar colour indicates the condition group the run is in. (Intensity values below log2(0.0005) are not shown.)
 
-```{r, fig.height = 10, fig.width = 8, echo = FALSE}
+```{r, echo = FALSE}
 # ggplot(decoyfilter %>% dplyr::count(Protein) %>% slice_max(order_by = n, n = 250) %>%  arrange(desc(n)) , aes(x=Protein, y=n)) + 
 #   geom_bar(stat = "identity") +
 #   geom_text(aes(label = n), colour="white", size=2, vjust=1.5) +
 #   theme(axis.text.x = element_text(angle=-45, vjust=0.5, hjust=0)) + 
 #   labs(y = "count") +
 #   scale_y_continuous(expand = c(0, 0)) 
-# Protein overlap. Indicates the number of protein groups that were identified across different number of samples for the top250 most ocurring proteins.  
+# Protein overlap. Indicates the number of protein groups that were identified across different number of samples for the top250 most ocurring proteins.
 
 # We might be better served with a boxplot?
-ggplot(decoyfilter %>% dplyr::count(Protein) %>% slice_max(order_by = n, n = 250) %>%  arrange(desc(n)) %>% mutate(overlap_distribution = "Overlap distribution"), aes(y=n, x=)) + 
+ggplot(decoyfilter %>% dplyr::count(Protein) %>%  arrange(desc(n)) %>% mutate(overlap_distribution = "Overlap distribution"), aes(y=n)) + 
   geom_boxplot(notch=TRUE) + coord_flip() +
-  labs(y = "Ocurrances per protein group") +
+  labs(y = "Occurrences per protein group") +
   theme(axis.title.y=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank())
@@ -252,7 +278,6 @@ ggplot(decoyfilter, aes(x=originalRUN)) +
   geom_text(aes(label = ..count..), stat="count", colour="white", size=2, vjust=1.5) +
   theme(axis.text.x = element_text(angle=-45, vjust=0.5, hjust=0)) + 
   scale_y_continuous(expand = c(0, 0))
-
 ```
 Figure 4. Protein counts in each sample. The total number of proteins (SwissProt non-isoforms) from all protein groups to which at least 2 or more unique peptides from each sample are mapped to.
 
@@ -279,31 +304,30 @@ ggplot(pca_plot_data, aes(x=PC1, y = PC2, colour = rownames(pca_plot_data)))+
 Figure 5. PCA plot. The normalised intensity values of detected proteins are used to compute the priniciple components. Data colour indicates condition group the run is in.
 
 
-```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE, eval=FALSE}
-par(mar=c(5,5,2,2),xaxs = "i",yaxs = "i",cex.axis=0.4,cex.lab=10)
-condition_grouping <- as.numeric(as.factor(annot$Condition))
-
+```{r echo=FALSE,  fig.align="center", dpi=270 , warning=FALSE}
 hclust_input <- t(protein_matrix %>% column_to_rownames("Protein"))
 hclust_input[is.na(hclust_input)]=0
 
-Condition <- brewer.pal( length(unique(annot$Condition)) , "Set1")[condition_grouping]
-colSide <-cbind(Condition)
-colMain <- colorRampPalette(brewer.pal(10, "Blues"))(25)
-cor_results <- cor( hclust_input )
-ColSideAnn<-data.frame(Condition=condition_grouping,stringsAsFactors=TRUE)
-heatmap3(main="Hierarchical Cluster Analysis:",
-         cor_results, 
-         RowSideColors=colSide,
-         ColSideColors=colSide,
-         col=colMain,
-         labRow = seq(length(annot$Run)),
-         cexRow = 0.4,
-         labCol = FALSE,
-         ColSideAnn=ColSideAnn,
-         ColSideWidth = 10,
-         legendfun=function() showLegend(legend=levels(as.factor(annot$Condition)),col=brewer.pal(9, "Set1")[seq_along(levels(as.factor(annot$Condition)))], cex=.9, title="Condition"))
-# replace with
-# https://jcoliver.github.io/learn-r/008-ggplot-dendrograms-and-heatmaps.html
+# par(mar=c(5,5,2,2),xaxs = "i",yaxs = "i",cex.axis=0.4,cex.lab=10)
+# condition_grouping <- as.numeric(as.factor(annot$Condition))
+# Condition <- brewer.pal( length(unique(annot$Condition)) , "Set1")[condition_grouping]
+# colSide <-cbind(Condition)
+# colMain <- colorRampPalette(brewer.pal(10, "Blues"))(25)
+# cor_results <- cor( hclust_input )
+# ColSideAnn<-data.frame(Condition=condition_grouping,stringsAsFactors=TRUE)
+# heatmap3(main="Hierarchical Cluster Analysis:",
+#          cor_results, 
+#          RowSideColors=colSide,
+#          ColSideColors=colSide,
+#          col=colMain,
+#          labRow = seq(length(annot$Run)),
+#          cexRow = 0.4,
+#          labCol = FALSE,
+#          ColSideAnn=ColSideAnn,
+#          ColSideWidth = 10,
+#          legendfun=function() showLegend(legend=levels(as.factor(annot$Condition)),col=brewer.pal(9, "Set1")[seq_along(levels(as.factor(annot$Condition)))], cex=.9, title="Condition"))
+# # replace with
+# # https://jcoliver.github.io/learn-r/008-ggplot-dendrograms-and-heatmaps.html
 
 
 # Run clustering
@@ -312,9 +336,6 @@ dendro.order <- order.dendrogram(run.dendro)
 
 # Create dendro
 dendro.plot <- ggdendrogram(data = run.dendro, rotate = TRUE) + theme(axis.text.y = element_text(size = 5))
-
-# Preview the plot
-print(dendro.plot)
 
 hclust.long <- decoyfilter %>%
   dplyr::mutate(NormIntensities = `^`(2,NormLogIntensities)) %>%
@@ -333,23 +354,17 @@ heatmap.plot <- ggplot(data = hclust.long, aes(x = Protein, y = originalRUN)) +
   scale_fill_gradient2() +
   theme(axis.text.y = element_text(size = 6)) + 
   labs(x = "Protein groups", y = "Runs") +
-  theme(axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
+  theme(axis.text.x=element_blank(),
         axis.ticks.x=element_blank(),
         axis.text.y=element_blank(),
-        axis.title.y=element_blank(),
         axis.ticks.y=element_blank(),
         legend.position = "top")
 
-
-# Preview the heatmap
-print(heatmap.plot)
-
-library(grid)
-grid.newpage()
-print(heatmap.plot, vp = viewport(x = 0.4, y = 0.5, width = 0.7, height = 1.0))
-print(dendro.plot, vp = viewport(x = 0.90, y = 0.38, width = 0.2, height = .975))
-
+library(patchwork)
+heatmap.plot | dendro.plot
+#grid.newpage()
+#print(heatmap.plot, vp = viewport(x = 0.4, y = 0.5, width = 0.7, height = 1.0))
+#print(dendro.plot, vp = viewport(x = 0.90, y = 0.38, width = 0.2, height = .975))
 ```
 Figure 6. Hierarchical cluster of normalised log2 protein intensities.
 
