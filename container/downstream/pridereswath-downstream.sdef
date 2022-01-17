@@ -7,6 +7,7 @@ From: bioconductor/bioconductor_docker:RELEASE_3_12
 	DIA_downstream_report.rmd /scripts/DIA_downstream_report.rmd 
 	DIA_downstream_datacarpentry.R /scripts/DIA_downstream_datacarpentry.R
 	OpenSWATHtoMSstatsFormat.R /scripts/OpenSWATHtoMSstatsFormat.R
+	rq_pxd.py /scripts/rq_pxd.py
 
 %post
 #install some more build tools and libs

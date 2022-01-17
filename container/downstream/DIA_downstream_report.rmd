@@ -35,16 +35,7 @@ source('/scripts/DIA_downstream_datacarpentry.R')
 
 ### General dataset information
 ```{r echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
-idf  <- read.table( params$idf, quote = "\"", header = TRUE, sep = "\t", stringsAsFactors = FALSE, comment.char = "#", col.names = paste0("V",seq_len(3)), fill = TRUE)
-
-ds_title <- idf[idf$V1 == "Investigation Title",2]
-PI_name <- paste(idf[idf$V1 == "Person Last Name",3], idf[idf$V1 == "Person First Name",3], sep = ", ")
-PI_email <- idf[idf$V1 == "Person Email",3]
-Submitter_name <- paste(idf[idf$V1 == "Person Last Name",2], idf[idf$V1 == "Person First Name",2], sep = ", ")
-Submitter_email <- idf[idf$V1 == "Person Email",2]
-pubmed_id <- idf[idf$V1 == "PubMed ID",2]
-pride_link <- paste("https://www.ebi.ac.uk/pride/archive/projects/", "PLACEHOLDER", sep="") 
-affiliation <- idf[idf$V1 == "Person Address",3]
+idf  <- read.table( params$idf, quote = "\"", header = TRUE, sep = ",", stringsAsFactors = FALSE, comment.char = "#")
 
 dataset_affiliation <- data.frame( 
   c("PRIDE dataset URL:",
@@ -54,19 +45,15 @@ dataset_affiliation <- data.frame(
     "Original dataset submitter:",
     "E-mail:",
     "PubMed ID:"), 
-  c(pride_link,
-    PI_name,
-    PI_email, 
-    affiliation,
-    Submitter_name,
-    Submitter_email,
-    pubmed_id)
+  c(idf$PRIDE.dataset.URL, idf$Lab.Head, idf$Correspondence, idf$Affiliation, idf$Original.dataset.submitter, idf$E.mail, idf$PubMed.ID)
   )
 ```
 #### `r ds_title`
 
 ```{r, echo=FALSE, warning=FALSE}
 kable(dataset_affiliation, col.names = NULL)
+
+idf$Project.title
 ```
 Please find the experimental design used in the reanalysis in the [appendix](#ed).
 
