@@ -25,7 +25,7 @@ get_density <- function(x, y, ...) {
 # df: df long form, needs cols `c(LogIntensities,Protein,originalRUN,technical_replicate or sample_id)`
 # ! technical_replicate tuples must be named a/b/...
 # ! correlates only a with b (c.. is ignored)
-correlate_techreps <- function(df) {
+correlate_techreps <- function(df, pntsz=1) {
   # in case different technical replicates are made, an optional sample_id column can be used to (uniquely) identifiy TR pairs
   if("sample_id" %in% names(df)) {
     corr <- df %>% 
@@ -47,7 +47,7 @@ correlate_techreps <- function(df) {
   corr$density <- get_density(corr$a, corr$b, n = 100)
   
   plot <- ggplot(corr, aes(x = a, y = b, color = density)) + 
-    geom_point() + 
+    geom_point(size=pntsz) + 
     #scale_fill_gradient(low="blue", high="red") +
     scale_color_viridis_c(option = "magma", guide=FALSE) + 
     geom_smooth(method=lm) + 
