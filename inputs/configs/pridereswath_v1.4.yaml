@@ -34,4 +34,11 @@ helper_scripts:
   memory: 4
 aRgh:
   container: "/hps/nobackup2/proteomics/python-r:bioc-py3-tinytex-qc_plus_msstats.simg"
+  normalization: "pre-msstats-median"
+  summaryMethod: "TMP"
+  featureSubset: "top3"
+  cutoffCensored: "minFeature"
+  censoredInt: "0"
+  MBimpute: TRUE
+  maxQuantileforCensored: 0.999
 
