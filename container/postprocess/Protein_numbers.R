@@ -1,3 +1,5 @@
+### Fig. 2
+
 library(tidyverse)
 library(stringr)
 library(tibble)
@@ -70,7 +72,7 @@ discovery <- ggplot(protein_comp, aes(x=PXD, y=count, fill=Source)) +
   scale_fill_brewer(palette="Dark2")
 
 
-panel_num <- fdr + discovery + plot_annotation(tag_levels = 'A')
+panel_num <- fdr + discovery + plot_annotation(tag_levels = 'a')
 ggsave(
   "dia_paper_numbers_panel_top3_oridata_update.pdf",
   plot = panel_num,
@@ -114,4 +116,4 @@ discovery_inference <- ggplot(protein_comp, aes(x=PXD, y=count, fill=Source)) +
   scale_fill_brewer(palette="Dark2")
 
 
-discovery + discovery_inference + plot_annotation(tag_levels = 'A')
+discovery + discovery_inference + plot_annotation(tag_levels = 'a')

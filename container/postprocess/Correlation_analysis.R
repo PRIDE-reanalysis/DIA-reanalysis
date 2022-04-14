@@ -16,7 +16,7 @@ for (p in pxds ){
  (Correlation_reanalysis_PXD003497 | Correlation_original_PXD003497 ) / 
    (Correlation_reanalysis_PXD004873 | Correlation_original_PXD004873 ) / 
    (Correlation_reanalysis_PXD014194 | Correlation_original_PXD014194 ) / 
-   plot_annotation(tag_levels = 'A')
+   plot_annotation(tag_levels = 'a')
 
 ggsave(
   "dia_paper_correlation_panel_top3update.pdf",
@@ -47,7 +47,8 @@ panel_cr <- (Correlation_reanalysis_PXD003497 + xlim(0,25) + ylim(0,25) + labs(t
      Correlation_original_PXD004873 + xlim(0,25) + ylim(0,25) + labs(title = "PXD004873", subtitle = "(Original)") ) / 
   (Correlation_reanalysis_PXD014194 + xlim(0,25) + ylim(0,25) + labs(title = "PXD014194", subtitle = "(Reanalysis)") | 
      Correlation_original_PXD014194 + xlim(0,25) + ylim(0,25) + labs(title = "PXD014194", subtitle = "(Original)") )/ 
-  plot_annotation(tag_levels = 'A', title = 'Protein correlation in technical replicates')
+  plot_annotation(tag_levels = 'a')
+  #plot_annotation(tag_levels = 'a', title = 'Protein correlation in technical replicates')
 
 ggsave(
   "dia_paper_correlation_panel_top3update_axisfix_outliertreated.pdf",
@@ -100,6 +101,6 @@ for (p in pxds ){
      Correlation_original_PXD004873  + xlim(0,25) + ylim(0,25) + labs(title = "PXD004873", subtitle = "(Original)") ) / 
   (Correlation_reanalysis_top3_PXD014194 + xlim(0,25) + ylim(0,25) + labs(title = "PXD014194", subtitle = "(Reanalysis)") | 
      Correlation_original_PXD014194 + xlim(0,25) + ylim(0,25) + labs(title = "PXD014194", subtitle = "(Original)") )/ 
-  plot_annotation(tag_levels = 'A', title = 'Protein correlation in technical replicates')
+  plot_annotation(tag_levels = 'a', title = 'Protein correlation in technical replicates')
 
 

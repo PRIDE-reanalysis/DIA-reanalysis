@@ -1,3 +1,5 @@
+### Fig. 5
+
 source("../container/downstream/DIA_downstream_datacarpentry.R")
 source("../container/postprocess/DIA_postprocess_differential.R")
 source("../container/postprocess/codify_study_customisations.R")
@@ -20,7 +22,8 @@ Contrast_PXD000672$`ccRCC-normal_ccRCC` <- Contrast_PXD000672$`ccRCC-normal_ccRC
 panel_de <- (Contrast_PXD014943$`eDLBCL-PCNSL` + ylim(0,30) | Contrast_PXD014943$`eDLBCL-IVL`+ ylim(0,30) ) / 
   (Contrast_PXD004691$`F-N-F-T` + ylim(0,25) | Contrast_PXD004691$`P-N-P-T` + ylim(0,25) ) / 
   (Contrast_PXD000672$`ccRCC-normal_ccRCC` + ylim(0,15) | Contrast_PXD000672$`ccRCC-pRCC`+ ylim(0,15) ) / 
-  plot_annotation(tag_levels = 'A', title = 'Volcano plots for differential expression')
+  plot_annotation(tag_levels = 'a')
+  #plot_annotation(tag_levels = 'a', title = 'Volcano plots for differential expression')
 # panel_de
 # point size should be 2
 

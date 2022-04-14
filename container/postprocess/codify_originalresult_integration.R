@@ -1633,3 +1633,19 @@ original_pub_long <- inj %>%
   dplyr::rename(originalRUN = Run) %>%
   dplyr::select(-lu)
 }
+
+# PXD003539
+# Missing link between sample name (BR_BT549_a) and run (guot_L130612_005_SW.mzML)
+# theirs_PXD003539 <- function(){
+#   annot <- read.delim("../inputs/annotations/PXD003539_annotation_corrected.txt")
+#   ori   <- read.delim("../inputs/original_results_from_supplementaries/PXD003539_suppl_protein_quant.tsv") %>%
+#     dplyr::mutate(Protein = as.factor(protein.accession.number)) %>% 
+#     dplyr::select(Protein, BR_BT549_a:LC_EKVX_b)  %>% 
+#     tidyr::gather(sample_name, OriIntensities, BR_BT549_a:LC_EKVX_b) %>%
+#     full_join(annot,by="sample_name")  %>%   
+#     dplyr::mutate(GROUP_ORIGINAL = as.factor(Condition), SUBJECT_ORIGINAL = as.factor(BioReplicate))  %>%
+#     dplyr::select(-Condition,-BioReplicate) %>%
+#     dplyr::rename(originalRUN = Run) %>%
+#     dplyr::mutate(OriIntensities = as.numeric(na_if(OriIntensities,1))) %>%
+#     dplyr::mutate(LogIntensities = log2(OriIntensities))
+# }
