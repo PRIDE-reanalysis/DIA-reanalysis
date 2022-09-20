@@ -33,7 +33,12 @@ Each step has its own software requirements. The necessary analysis software is 
 
 ## The repository
 Since software requirements for the pipeline are overlapping and pipeline steps are probably conducted in different environments, the repository is structured such that, once checked out, it can be bootstrapped easiest for _use_ in the respective pipeline part.
+
 A) Data curation protocols and documentation are found in [doc/](doc/)
+
 B+C) Workflows are found in [nextflows/](nextflows/), corresponding documentation in [doc/nextflows-documentation](doc/nextflows-documentation). Example configuration and input files are found in [inputs/](inputs/). Container recipes for used containers are found in [container/](container/), upstream for B) and downstream for C) respectively. 
+
 D) Software and scripts for postprocessing, result inspection and visualisation can be found in [container/postprocess](container/postprocess). For this, we suggest use of the R/ folder to start the containerised R environment in. 
 
+## Cite this work
+Walzer, M., García-Seisdedos, D., Prakash, A. et al. Implementing the reuse of public DIA proteomics datasets: from the PRIDE database to Expression Atlas. Sci Data 9, 335 (2022). https://doi.org/10.1038/s41597-022-01380-9
