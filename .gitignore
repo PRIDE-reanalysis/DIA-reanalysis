@@ -2,3 +2,5 @@
 ppr/
 R/*
 !R/README.md
+inputs/**/*.rda
+inputs/**/*.gz
